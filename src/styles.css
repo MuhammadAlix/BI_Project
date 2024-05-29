@@ -31,6 +31,13 @@ nav a {
 nav a:hover {
   background-color: grey;
 }
+.main{
+  display: flex;
+}
+.sidebar{
+  display: flex;
+  height: 100vh;
+}
 .sidebar1{
   width: 80px;
   background-color: var(--navbackgroundcolor);
@@ -46,4 +53,199 @@ nav a:hover {
   margin: 20px 0px 0px 20px;
   color: white;
   background-color: var(--sidebarbackgroundcolor);
+}
+.sidebar2{
+  background-color: var(--sidebarbackgroundcolor);
+  overflow: hidden;
+  height: 100vh;
+  margin: 0; 
+  padding: 0;
+  top: 0;
+  
+}
+.sidebar2 a{
+  display: flex;
+  padding-left: 20px;
+  margin-bottom: 7px;
+  width: 250px;
+  flex-wrap: wrap;
+  font-size: 20px;
+}
+.sidebar2 a:hover{
+  background-color: #b5b9bc;
+}
+.sidebar2 h3{
+  color: white;
+  font-size: 25px;
+  margin-left: 20px;
+}
+.mainss{ 
+  width: 50%;
+  height: 90vh;
+  padding-left: 17%;
+  padding-right: 2%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin: 0;  
+  display: grid;
+  place-items: center;
+}
+.mainss img{
+  width: 700px;
+  height: 600px;
+}
+
+/* Common in all */
+.mainscreen{
+  background-color: #888c8e;
+  width: 100%;
+}
+.mainscreen_data{
+  display: flex;
+  width: 100%;
+  height: 70%;
+  
+}
+.mainscreen-data-input{
+  display: flex;
+  width: 70%;
+  height: 100%;
+}
+
+.data-code{
+  display: none;
+  width: 40%;
+  height: 100%;
+  margin-left: 18.2%;
+  background-color: var(--sidebarbackgroundcolor);
+}                       
+.data-code textarea{
+  background-color: var(--inputbackgroundcolor);
+  width: 350px;
+  height: 400px;
+  resize: none;
+  margin-left: 20px;
+  border: 1px solid var(--inputbackgroundcolor);
+  border-radius: 30px;
+}
+.Code_heading{
+  background-color: transparent;
+  color: var(--inputbackgroundcolor);
+  font-size: 20px;
+}
+.data-code-header{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.data-code-header-buttons{
+  padding-left: 60px;
+}
+.data-code-header-buttons button{
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border: 1px solid var(--inputbackgroundcolor);
+}
+.data-code-header-buttons .Python_code {
+  border: 1px solid var(--sidebarbackgroundcolor);
+}
+.data-code-footer{
+  margin-left: 230px;
+  display: flex;
+  justify-content: space-around;
+}
+.data-code-footer button{
+  width: 60px;
+  height: 25px;
+  border-radius: 10px;
+  border: 1px solid var(--sidebarbackgroundcolor);
+  font-size: 20px;
+  color: var(--sidebarbackgroundcolor);
+  background-color: var(--inputbackgroundcolor);
+  cursor: pointer;
+}
+.Rust_code{
+  width: 50px;
+  height: 35px;
+  font-size: 20px;
+  background-color: var(--inputbackgroundcolor);
+}
+.Rust_code a{
+  color: var(--sidebarbackgroundcolor);
+}
+.Python_code {
+  width: 75px;
+  height: 35px;
+  font-size: 20px;
+  background-color: transparent;
+}
+.Python_code a{
+  color: var(--inputbackgroundcolor);
+}
+.Mainscreen-terminal{
+  /* display: none; */
+  width: 100%;
+  height: 30%;
+  background-color: black;
+}
+.Mainscreen-terminal h3{
+  color: #fff;
+  margin-left: 10px;
+} 
+
+/* Nucleotide Counting data*/
+.NC_input{
+  display: flex;
+  align-items: center;
+  margin-top: 100px;
+  margin-left: 150px;
+}
+.NC_inputfield{
+  width: 350px;
+}
+.NC_inputfield h3{
+  margin-bottom: 20px;
+  margin-left: 20px;
+  color: white;
+}
+.NC_inputfield textarea{
+  resize: none;
+  width: 300px;
+  height: 100px;
+  background-color: var(--inputbackgroundcolor);
+  border-radius: 20px;
+}
+.NC_buttons{
+  margin-top: 20px;
+}
+.NC_buttons input{
+  margin-top: 10px;
+  width: 70px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.NC_buttons button{
+  display: grid;
+  margin-top: 10px;
+  width: 70px;
+  height: 25px;
+  font-size: 16px;
+  padding-top: 4px;
+  border: none;
+  border-radius: 5px;
+}
+.NC_code_terminal-python{
+  display: none;
+}
+.NC_terminaloutput{
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  
+}
+.NC_terminaloutput p{
+  color: white;
+  width: 90%;
 }

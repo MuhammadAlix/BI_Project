@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="#help">Help</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About Us</a>
+    </nav>
+    <div class="main"> 
+        <div class="sidebar">
+            <div class="sidebar1">
+                <button class="DNA"><b><a href="">DNA</a></b></button>
+                <button class="RNA"><b><a href="">RNA</a></b></button>
+                <button class="Protein"><b><a href="">PRO</a></b></button>
+            </div>
+            <div class="sidebar2">
+                <div class="DNA_data">
+                    <h3>DNA</h3>
+                    <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
+                    <a href="Complementary.html">Complementary Strand</a>
+                    <a href="Transcription.html">Transcription</a>
+                    <a href="GC-Content.html">GC Content</a>
+                    <a href="DNA-motif.html">DNA Motif finding</a>
+                    <a href="Translation.html">Translation</a>
+                </div>
+                <div class="RNA_data">
+                    <h3>RNA</h3>
+                    <a href="">DNA Nucleotide Counting</a>
+                    <a href="">Complementary Strand</a>
+                    <a href="">Transcription</a>
+                    <a href="">GC Content</a>
+                    <a href="practice.html">DNA Motif finding</a>
+                    <a href="index2.html">Translation</a>
+                </div>
+            </div>
+        </div>
+        <div class="mainscreen">
+            <div class="mainscreen_data">
+                <div class="mainscreen_data_input">
+                    <div class="NC_input">
+                        <div class="NC_inputfield">
+                            <h3>Enter Your DNA Sequence</h3>
+                            <textarea id="NCtextarea" cols="30" rows="10"></textarea>
+                        </div>
+                        <div class="NC_buttons">
+                            <input type="submit" class="NC_submit">
+                            <button class="NC_reset">Reset</button>
+                            <button class="NC_code">Code</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-code">
+                    <div class="data-code-header">
+                        <h3 class="Code_heading">Code</h3>
+                        <div class="data-code-header-buttons">
+                            <button class="Rust_code"><b><a href="">Rust</a></b></button>
+                            <button class="Python_code"><b><a href="">Python</a></b></button>
+                        </div>
+                    </div>
+                    <div class="NC_code_terminal_Rust">
+                        <textarea id="NC_code_terminal-rust" cols="50" rows="34" readonly class="NC_rust_code">
+                        
+fn n_count(seq: &str) -> String {
+let newseq = seq.to_uppercase();
+let count_a = newseq.matches('A').count();                              let count_t = newseq.matches('T').count();
+let count_g = newseq.matches('G').count();
+let count_c = newseq.matches('C').count();
+format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+}
+                        </textarea>
+                        <div class="data-code-footer">
+                            <button class="NC_Rust_copy">Copy</button>
+                            <button class="NC_Rust_Test">Test</button>
+                        </div>
+                    </div>
+                    <div class="NC_code_terminal-python">
+                        <textarea id="" cols="50" rows="34" readonly class="NC_python_code">
+DNA=input("Enter your DNA Sequence: ")
+DNA=DNA.upper()
+Adenine= DNA.count("A")
+Guanine= DNA.count("G")
+Cytosine =DNA.count("C")
+Thyamine = DNA.count("T")
+print("A: " ,Adenine)
+print("G: ", Guanine)
+print("C: ", Cytosine)
+print("T: ", Thyamine)
+                        </textarea>
+                        <div class="data-code-footer">
+                            <button class="NC_python_copy">Copy</button>
+                            <button class="NC_python_Test">Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Mainscreen-terminal">
+                <h3>Terminal</h3>
+                <div class="NC_terminaloutput">
+                  <p id="NC_para_output"></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
