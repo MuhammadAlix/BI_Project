@@ -3,10 +3,13 @@
   --sidebarbackgroundcolor:#656d76;
   --terminalbackgroundcolor:#0d1823;
   --inputbackgroundcolor:#e6edf3;
+  --maincolor:#7d8590;
+  --main_font:Arial;
 }
 *{
   margin: 0;
   padding: 0;
+  font-family:var(--main_font);
 }
 a{
   text-decoration: none;
@@ -14,7 +17,7 @@ a{
 }
 nav {
   overflow: hidden;
-  height: 50px; 
+  height: 30px; 
   background-color: var(--navbackgroundcolor);
   display: flex;
   align-items: center; 
@@ -23,9 +26,11 @@ nav {
 nav a {
   display: block;
   color: white;
-  padding: 10px 10px;
+  padding: 2px 2px;
+  margin: 0px 8px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 15px;
+  border-radius: 5px;
 }
 
 nav a:hover {
@@ -39,9 +44,12 @@ nav a:hover {
   height: 100vh;
 }
 .sidebar1{
-  width: 80px;
+  width: 60px;
   background-color: var(--navbackgroundcolor);
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
 }
 .sidebar1 button{
@@ -50,9 +58,17 @@ nav a:hover {
   border-radius: 45px;
   border: 1px solid white;
   font-size: 20px;
-  margin: 20px 0px 0px 20px;
+  font-weight: bold;
+  margin: 10px 0px;
+  /* margin: 20px 0px 0px 20px; */
   color: white;
   background-color: var(--sidebarbackgroundcolor);
+  transition-duration: border 3s;
+  transition-timing-function: border ease-in-out;
+}
+.sidebar button:hover{
+  border: 2px solid white;
+  cursor: pointer;
 }
 .sidebar2{
   background-color: var(--sidebarbackgroundcolor);
@@ -65,19 +81,22 @@ nav a:hover {
 }
 .sidebar2 a{
   display: flex;
-  padding-left: 20px;
-  margin-bottom: 7px;
+  padding: 10px 0px 5px 20px;
+  
+  /* margin-bottom: 7px; */
   width: 250px;
   flex-wrap: wrap;
-  font-size: 20px;
+  font-size: 18px;
 }
 .sidebar2 a:hover{
-  background-color: #b5b9bc;
+  background-color: var(--maincolor);
 }
 .sidebar2 h3{
   color: white;
   font-size: 25px;
-  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: #4f5863;
+  /* margin-left: 20px; */
 }
 .mainss{ 
   width: 50%;
@@ -97,7 +116,7 @@ nav a:hover {
 
 /* Common in all */
 .mainscreen{
-  background-color: #888c8e;
+  background-color: var(--maincolor);
   width: 100%;
 }
 .mainscreen_data{
@@ -126,7 +145,7 @@ nav a:hover {
   resize: none;
   margin-left: 20px;
   border: 1px solid var(--inputbackgroundcolor);
-  border-radius: 30px;
+  border-radius: 10px;
 }
 .Code_heading{
   background-color: transparent;
@@ -186,11 +205,13 @@ nav a:hover {
   /* display: none; */
   width: 100%;
   height: 30%;
-  background-color: black;
+  background-color: var(--terminalbackgroundcolor);
 }
 .Mainscreen-terminal h3{
   color: #fff;
-  margin-left: 10px;
+  /* margin-top: 100px; */
+  padding-top: 10px;
+  margin-left: 20px;
 } 
 
 /* Nucleotide Counting data*/
@@ -204,16 +225,19 @@ nav a:hover {
   width: 350px;
 }
 .NC_inputfield h3{
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 20px;
   margin-left: 20px;
   color: white;
 }
 .NC_inputfield textarea{
   resize: none;
+  padding: 10px 20px;
   width: 300px;
-  height: 100px;
+  height: 90px;
   background-color: var(--inputbackgroundcolor);
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .NC_buttons{
   margin-top: 20px;
