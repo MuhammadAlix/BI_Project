@@ -11,6 +11,48 @@
   padding: 0;
   font-family:var(--main_font);
 }
+
+.grid{
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 30px 1fr;   
+}
+.header{
+  /* background-color: blueviolet; */
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+.side{
+  background-color: grey;
+}
+.main{
+  background-color: rgb(248, 141, 0);
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 1fr 250px;
+}
+.entry{
+  background-color: aqua;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.code{
+  background-color: beige;
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+.terminal{
+  background-color: blue;
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
+
+
+
+
+
 a{
   text-decoration: none;
   color: white;
@@ -36,18 +78,19 @@ nav a {
 nav a:hover {
   background-color: grey;
 }
-.main{
+/* .main{
   display: flex;
-}
+} */
 .sidebar{
   display: flex;
-  height: 100vh;
+  height: 100%;
 }
 .sidebar1{
   width: 60px;
   background-color: var(--navbackgroundcolor);
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
+  flex-shrink: 0;
   flex-direction: column;
   align-items: center;
   
@@ -73,7 +116,7 @@ nav a:hover {
 .sidebar2{
   background-color: var(--sidebarbackgroundcolor);
   overflow: hidden;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0; 
   padding: 0;
   top: 0;
@@ -84,7 +127,7 @@ nav a:hover {
   padding: 10px 0px 5px 20px;
   
   /* margin-bottom: 7px; */
-  width: 250px;
+  width: 100em;
   flex-wrap: wrap;
   font-size: 18px;
 }
@@ -132,7 +175,7 @@ nav a:hover {
 }
 
 .data-code{
-  display: none;
+  /* display: none; */
   width: 40%;
   height: 100%;
   margin-left: 18.2%;
