@@ -158,7 +158,9 @@ nav a:hover {
 }
 
 /* Common in all */
-.flex{
+
+/* Sequence Entry Area */
+.entry{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,6 +198,83 @@ nav a:hover {
   background-color: var(--sidebarbackgroundcolor);
   color: #fff;
 }
+
+/* Code area */
+.code{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: var(--sidebarbackgroundcolor);
+}
+.top{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  
+}
+.langs{
+  margin-top: 5px;
+  padding-right: 3px;
+}
+.codeSelect{
+  border: none;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-weight: bold;
+}
+#rust{
+  background-color: var(--inputbackgroundcolor);
+  border: 2px solid var(--inputbackgroundcolor);
+  
+}
+#python{
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+}
+.codeArea{
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+  /* background-color: var(--inputbackgroundcolor); */
+  /* background: transparent; */
+}
+.codeText{
+  width: 95%;
+  padding: 5px;
+  border: none;
+  background-color: var(--inputbackgroundcolor);
+  border-radius: 10px;
+}
+.codeText textarea{
+  /* border: 1px solid var(--inputbackgroundcolor); */
+  /* border-radius: 10px; */
+  border: 10px solid var(--inputbackgroundcolor);
+  
+}
+.bottom2{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+#copybtn{
+  background-color: var(--inputbackgroundcolor);
+  color: black;
+}
+.terminal{
+  /* display: none; */
+  width: 100%;
+  height: 100%;
+  background-color: var(--terminalbackgroundcolor);
+}
+.terminal h3{
+  color: #fff;
+  /* margin-top: 100px; */
+  padding-top: 10px;
+  margin-left: 20px;
+} 
 .mainscreen{
   background-color: var(--maincolor);
   width: 100%;
@@ -282,18 +361,7 @@ nav a:hover {
 .Python_code a{
   color: var(--inputbackgroundcolor);
 }
-.Mainscreen-terminal{
-  /* display: none; */
-  width: 100%;
-  height: 30%;
-  background-color: var(--terminalbackgroundcolor);
-}
-.Mainscreen-terminal h3{
-  color: #fff;
-  /* margin-top: 100px; */
-  padding-top: 10px;
-  margin-left: 20px;
-} 
+
 
 /* Nucleotide Counting data*/
 .NC_input{
