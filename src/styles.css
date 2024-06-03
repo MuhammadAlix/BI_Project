@@ -158,6 +158,44 @@ nav a:hover {
 }
 
 /* Common in all */
+.flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--maincolor);
+}
+.heading{
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  flex-shrink: 1;
+}
+.bottom{
+  display: flex;
+  padding: 10px;
+  flex-shrink: 1;
+}
+#seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+.btns{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.submit, .btn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+}
 .mainscreen{
   background-color: var(--maincolor);
   width: 100%;
