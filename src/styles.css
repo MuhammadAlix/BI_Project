@@ -29,9 +29,12 @@
 }
 .main{
   background-color: rgb(248, 141, 0);
+  height: 100%;
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 1fr 450px;
   grid-template-rows: 1fr 250px;
+  z-index: 9999;
+  cursor: default;
 }
 .entry{
   background-color: aqua;
@@ -43,10 +46,19 @@
   grid-column: 2/3;
   grid-row: 1/2;
 }
+pre code.hljs{
+  padding: 0;
+  margin: 0;
+}
 .terminal{
   background-color: blue;
   grid-column: 1/3;
   grid-row: 2/3;
+}
+#border1{
+  border-left: 3px solid red;
+  cursor: col-resize;
+  box-sizing: border-box;
 }
 
 
@@ -235,8 +247,8 @@ nav a:hover {
 .codeArea{
   display: flex;
   justify-content: center;
-  flex-grow: 1;
-  width: 100%;
+  /* flex-grow: 1; */
+  /* width: 100%; */
   /* background-color: var(--inputbackgroundcolor); */
   /* background: transparent; */
 }
@@ -247,11 +259,20 @@ nav a:hover {
   background-color: var(--inputbackgroundcolor);
   border-radius: 10px;
 }
-.codeText textarea{
+.codeText code{
+  background-color: var(--inputbackgroundcolor);
+  margin: 0;
+  padding: 0;
   /* border: 1px solid var(--inputbackgroundcolor); */
   /* border-radius: 10px; */
-  border: 10px solid var(--inputbackgroundcolor);
+  /* border: 10px solid var(--inputbackgroundcolor); */
   
+}
+#rustCode{
+  /* display: none; */
+}
+#pythonCode{
+  display: none;
 }
 .bottom2{
   display: flex;

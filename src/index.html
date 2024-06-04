@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Importing Highlight js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
 </head>
 <body>
     <div class="grid">
@@ -46,8 +54,10 @@
                 </div>
             </div>
         </div>
-        <div class="main">
-            <div class="entry">  
+        <div id="border1" onmousedown="(event)">
+
+            <div class="main">
+                <div class="entry">  
                 <div class="heading">
                     Enter Your Sequence
                 </div>
@@ -71,8 +81,8 @@
                     </div>
                 </div>
                 <div class="codeArea">
-                    <textarea id="rustCode" readonly class="codeText">
-                        
+                    <pre id="rustCode" class="codeText">
+                        <code class="language-rust">
 fn n_count(seq: &str) -> String {
     let newseq = seq.to_uppercase();
     let count_a = newseq.matches('A').count();
@@ -81,7 +91,23 @@ fn n_count(seq: &str) -> String {
     let count_c = newseq.matches('C').count();
     format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
 }
-                    </textarea>
+</code>
+                    </pre>
+                    <pre id="pythonCode" class="codeText">
+                        <code class="language-python">
+DNA=input("Enter your DNA Sequence: ")
+DNA=DNA.upper()
+Adenine= DNA.count("A")
+Guanine= DNA.count("G")
+Cytosine =DNA.count("C")
+Thyamine = DNA.count("T")
+print("A: " ,Adenine)
+print("G: ", Guanine)
+print("C: ", Cytosine)
+print("T: ", Thyamine)
+</code>
+</pre>
+
                 </div>
                 <div class="bottom2">
                     <button class="btn" id="copybtn">Copy</button>
@@ -93,6 +119,7 @@ fn n_count(seq: &str) -> String {
                   <p id="NC_para_output"></p>
                 </div>
             </div>
+            </div>
         </div>
     </div>
     <!-- <div class="main">
@@ -100,6 +127,7 @@ fn n_count(seq: &str) -> String {
                 <img src="assets/Logo.png" alt="Logo">
             </div>
         </div>
-     -->
+    -->
 </body>
+<script src="main.js"></script>
 </html>
