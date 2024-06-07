@@ -48,7 +48,7 @@ function codeAreaResizer(codeArea, resizeHandleCode) {
 
     function rs_mousemoveHandler(e) {
         var dx = e.clientX - x;
-        var cw = w + dx; // Update width calculation to resize from left to right
+        var cw = w - dx; // Update width calculation to resize from left to right
         if (cw > 100 && cw < window.innerWidth - 100) { // Set minimum and maximum code area width
             codeArea.style.width = `${cw}px`;
         }

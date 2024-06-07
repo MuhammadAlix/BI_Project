@@ -124,10 +124,12 @@ nav a {
 
 .input_area {
   display: flex;
-  width: 70%;
+  flex-grow: 1;
+  /* width: 70%; */
 }
 
 .codearea {
+  flex-shrink: 0;
   background-color: var(--sidebarbackgroundcolor);
   width: 30%; /* Initial width of the code area */
   height: 100%; /* Ensures code area fills vertical space */
@@ -139,10 +141,11 @@ nav a {
   width: 10px; /* Adjusted width for the resize handle */
   height: 100%; /* Height of the resize handle matches code area */
   cursor: ew-resize; /* Set cursor for horizontal resizing */
-  position: absolute;
-  left: 0; /* Position the resize handle on the left side */
-  top: 0; /* Aligned with the top of the code area */
+  /* position: absolute; */
+  /* left: 0; Position the resize handle on the left side */
+  /* top: 0; Aligned with the top of the code area */
   background-color: #aaa; /* Set background color for visibility */
+  
 }
 
 .terminal {
@@ -150,7 +153,7 @@ nav a {
   height: 30%;
   width: 100%;
   position: relative;
-  display: none;
+  /* display: none; */
 }
 
 .terminal .terminalr {
