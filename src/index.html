@@ -9,125 +9,57 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-<!-- and it's easy to individually load additional languages -->
+    <!-- and it's easy to individually load additional languages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
 
     <script>hljs.highlightAll();</script>
 </head>
 <body>
-    <div class="grid">
-        <div class="header">
-            <nav>
-                <a href="#help">Help</a>
-                <a href="#contact">Contact</a>
-                <a href="#about">About Us</a>
-            </nav>
-            
+    <nav>
+        <a href="#help">Help</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About Us</a>
+    </nav>
+    <div class="container">
+        <div class="left_sidebar">
+            <button class="DNA"><b>DNA</b></button>
+            <button class="RNA"><b>RNA</b></button>
+            <button class="Protein"><b>PRO</b></button>
         </div>
-        <div class="side">
-
-            <div class="sidebar">
-                <div class="sidebar1">
-                    <button class="DNA"><b><a href="">DNA</a></b></button>
-                    <button class="RNA"><b><a href="">RNA</a></b></button>
-                    <button class="Protein"><b><a href="">PRO</a></b></button>
-                </div>
-                <div class="sidebar2">
-                    <div class="DNA_data">
-                        <h3 class="DNA">DNA</h3>
-                        <a href="">DNA Nucleotide Counting</a>
-                        <a href="Complementary.html">Complementary Strand</a>
-                        <a href="Transcription.html">Transcription</a>
-                        <a href="GC-Content.html">GC Content</a>
-                        <a href="DNA-motif.html">DNA Motif finding</a>
-                        <a href="Translation.html">Translation</a>
-                    </div>
-                    <div class="RNA_data">
-                        <h3 class="RNA">RNA</h3>
-                        <a href="">DNA Nucleotide Counting</a>
-                        <a href="">Complementary Strand</a>
-                        <a href="">Transcription</a>
-                        <a href="">GC Content</a>
-                        <a href="practice.html">DNA Motif finding</a>
-                        <a href="index2.html">Translation</a>
-                    </div>
-                </div>
+        <div class="right_sidebar">
+            <div class="DNA-data">
+                <h3 class="DNA"><b>DNA Section</b></h3>
+                <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
+                <a href="Complementary.html">Complementary Strand</a>
+                <a href="Transcription.html">Transcription</a>
+                <a href="GC-Content.html">GC Content</a>
+                <a href="DNA-motif.html">DNA Motif finding</a>
+                <a href="Translation.html">Translation</a>
+            </div>                      
+            <div class="RNA-data">
+                <h3 class="RNA"><b>RNA Section</b></h3>
+                <a href="#">DNA Nucleotide Counting</a>
+                <a href="#">Complementary Strand</a>
+                <a href="#">Transcription</a>
+                <a href="#">GC Content</a>
+                <a href="practice.html">DNA Motif finding</a>
+                <a href="index2.html">Translation</a>
             </div>
+            <div class="sidr"></div>  
         </div>
-        <div id="border1" onmousedown="(event)">
-
-            <div class="main">
-                <div class="entry">  
-                <div class="heading">
-                    Enter Your Sequence
-                </div>
-                <div class="bottom">
-                    <div class="text-area">
-                        <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
-                    </div>
-                    <div class="btns">
-                        <input type="submit" class="submit" id="submitbtn">
-                        <button class="btn" id="resetbtn">Reset</button>
-                        <button class="btn" id="codebtn">Code</button>
-                    </div>
-                </div>
-            </div>
-            <div class="code">
-                <div class="top">
-                    <p class="heading">Code</p>
-                    <div class="langs">
-                        <button class="codeSelect" id="rust">Rust</button>
-                        <button class="codeSelect" id="python">Python</button>
-                    </div>
-                </div>
-                <div class="codeArea">
-                    <pre id="rustCode" class="codeText">
-                        <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
-}
-</code>
-                    </pre>
-                    <pre id="pythonCode" class="codeText">
-                        <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
-</code>
-</pre>
-
-                </div>
-                <div class="bottom2">
-                    <button class="btn" id="copybtn">Copy</button>
+        <div class="main">
+            <div class="maindata">
+                <div class="input_area"></div>
+                <div class="codearea">
+                    <div class="coder"></div>
                 </div>
             </div>
             <div class="terminal">
-                <h3>Terminal</h3>
-                <div class="NC_terminaloutput">
-                  <p id="NC_para_output"></p>
-                </div>
-            </div>
+                Terminal Content
+                <div class="terminalr"></div>
             </div>
         </div>
     </div>
-    <!-- <div class="main">
-            <div class="mainss">
-                <img src="assets/Logo.png" alt="Logo">
-            </div>
-        </div>
-    -->
 </body>
 <script src="main.js"></script>
 </html>
