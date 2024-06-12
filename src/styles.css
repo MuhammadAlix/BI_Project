@@ -1,4 +1,4 @@
-:root {
+  :root {
   --navbackgroundcolor: #384554;
   --sidebarbackgroundcolor: #656d76;
   --terminalbackgroundcolor: #0d1823;
@@ -128,6 +128,60 @@ nav a {
   /* width: 70%; */
 }
 
+
+
+
+.sidr {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: var(--navbackgroundcolor);
+  cursor: ew-resize;
+  top: 0;
+  right: 0;
+}
+.entry{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: var(--maincolor);
+  padding-left: 40px;
+}
+.heading{
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  flex-shrink: 1;
+}
+.bottom{
+  display: flex;
+  padding: 10px;
+  flex-shrink: 1;
+}
+#seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+.btns{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.submit, .btn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+}
+
+
+
 .codearea {
   flex-shrink: 0;
   background-color: var(--sidebarbackgroundcolor);
@@ -135,6 +189,7 @@ nav a {
   height: 100%; /* Ensures code area fills vertical space */
   position: relative; /* Add position relative for absolute positioning */
   overflow: hidden; /* Hide overflow content */
+  display: none;  
 }
 
 .codearea .coder {
@@ -147,13 +202,87 @@ nav a {
   background-color: #aaa; /* Set background color for visibility */
   
 }
+.codedata{
+  width: 95%;
+  margin-left: 5px;
+}
+
+.top{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  
+}
+.langs{
+  margin-top: 5px;
+  padding-right: 3px;
+}
+.codeSelect{
+  border: none;
+  padding: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-weight: bold;
+}
+#rust{
+  background-color: var(--inputbackgroundcolor);
+  border: 2px solid var(--inputbackgroundcolor);
+}
+#python{
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+}
+.codeArea{
+  display: flex;
+  justify-content: center;
+  /* flex-grow: 1; */
+  /* width: 100%; */
+  /* background-color: var(--inputbackgroundcolor); */
+  /* background: transparent; */
+}
+.codeText{
+  width: 95%;
+  padding: 5px;
+  border: none;
+  background-color: var(--inputbackgroundcolor);
+  border-radius: 10px;
+}
+.codeText code{
+  background-color: var(--inputbackgroundcolor);
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid var(--inputbackgroundcolor); */
+  /* border-radius: 10px; */
+  /* border: 10px solid var(--inputbackgroundcolor); */
+  
+}
+
+#pythonCode{
+  display: none;
+}
+.bottom2{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+#copybtn{
+  background-color: var(--inputbackgroundcolor);
+  color: black;
+}
+
+
+
+
+
+
 
 .terminal {
   background-color: var(--terminalbackgroundcolor);
   height: 30%;
   width: 100%;
   position: relative;
-  /* display: none; */
+  display: none;
 }
 
 .terminal .terminalr {
@@ -165,12 +294,15 @@ nav a {
   background-color: #aaa;
 }
 
-.sidr {
-  position: absolute;
-  width: 2px;
+.terminal_data{
+  width: 100%;
   height: 100%;
-  background-color: var(--navbackgroundcolor);
-  cursor: ew-resize;
-  top: 0;
-  right: 0;
+  
+}
+.terminal_data p{
+  width: 95%;
+  margin-top: 30px;
+  margin-left: 10px;
+  color: white;
+
 }

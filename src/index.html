@@ -49,14 +49,74 @@
         </div>
         <div class="main">
             <div class="maindata">
-                <div class="input_area"></div>
+                <div class="input_area">
+                    <div class="entry">
+                    <div class="heading">
+                        Enter Your Sequence
+                    </div>
+                    <div class="bottom">
+                        <div class="text-area">
+                            <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
+                        </div>
+                        <div class="btns">
+                            <input type="submit" class="submit" id="submitbtn">
+                            <button class="btn" id="resetbtn">Reset</button>
+                            <button class="btn" id="codebtn">Code</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
                 <div class="codearea">
                     <div class="coder"></div>
+                    <div class="codedata">
+                         <div class="top">
+                    <p class="heading">Code</p>
+                    <div class="langs">
+                        <button class="codeSelect" id="rust">Rust</button>
+                        <button class="codeSelect" id="python">Python</button>
+                    </div>
+                </div>
+                <div class="codeArea">
+                    <pre id="rustCode" class="codeText">
+                        <code class="language-rust">
+fn n_count(seq: &str) -> String {
+    let newseq = seq.to_uppercase();
+    let count_a = newseq.matches('A').count();
+    let count_t = newseq.matches('T').count();
+    let count_g = newseq.matches('G').count();
+    let count_c = newseq.matches('C').count();
+    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+}
+</code>
+                    </pre>
+                    <pre id="pythonCode" class="codeText">
+                        <code class="language-python">
+DNA=input("Enter your DNA Sequence: ")
+DNA=DNA.upper()
+Adenine= DNA.count("A")
+Guanine= DNA.count("G")
+Cytosine =DNA.count("C")
+Thyamine = DNA.count("T")
+print("A: " ,Adenine)
+print("G: ", Guanine)
+print("C: ", Cytosine)
+print("T: ", Thyamine)
+</code>
+</pre>
+
+                </div>
+                <div class="bottom2">
+                    <button class="btn" id="copybtn">Copy</button>
+                </div>
+                    </div>
                 </div>
             </div>
             <div class="terminal">
-                Terminal Content
                 <div class="terminalr"></div>
+                <div class="terminal_data">
+                
+                    <p class="outputss"></p>
+                </div>
             </div>
         </div>
     </div>
