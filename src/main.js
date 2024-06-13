@@ -131,6 +131,51 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 })
 
+//DNA Tools Handeling
+
+document.addEventListener("DOMContentLoaded", function(){
+    const Dtool1 = document.querySelector(".Dtool1");
+    const Dtool2 = document.querySelector(".Dtool2");
+    const Dtool3 = document.querySelector(".Dtool3");
+    const Dtool4 = document.querySelector(".Dtool4");
+    const Dtool5 = document.querySelector(".Dtool5");
+    const Dtool6 = document.querySelector(".Dtool6");
+    const submit = document.querySelector("#submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+    Dtool1.addEventListener('click', function(){
+        submit.className='DNATool1';
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#seq-text');
+            var output = document.querySelector('.outputss');
+            var text = textarea.value;
+            invoke('n_count', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+    Dtool2.addEventListener('click', function(){
+        submit.className='DNATool2';
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#seq-text');
+            var output = document.querySelector('.outputss');
+            var text = textarea.value;
+            invoke('complementary', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+    Dtool3.addEventListener('click', function(){
+        submit.className='DNATool3';
+    })
+    Dtool4.addEventListener('click', function(){
+        submit.className='DNATool4';
+    })
+    Dtool5.addEventListener('click', function(){
+        submit.className='DNATool5';
+    })
+    Dtool6.addEventListener('click', function(){
+        submit.className='DNATool6';
+    })
+})
 
 // input area click functionalities
 
@@ -209,20 +254,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });                        
 
-
-// submit event
-
-
-document.addEventListener("DOMContentLoaded", function() {
-    const submit = document.querySelector('.submit');
-    const terminal = document.querySelector('.terminal');
-
-    submit.addEventListener('click', function() {
-        var textarea = document.querySelector('#seq-text');
-        var output = document.querySelector('.outputss');
-        var text = textarea.value;
-        invoke('n_count', {seq: text}).then((result) => output.textContent=result);
-        terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-    });
-});
 
