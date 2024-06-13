@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const Dtool6 = document.querySelector(".Dtool6");
     const submit = document.querySelector("#submitbtn");
     const terminal = document.querySelector('.terminal');
+    const code = document.querySelector('.codeArea');
 
     Dtool1.addEventListener('click', function(){
         submit.className='DNATool1';
@@ -154,7 +155,52 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     })
     Dtool2.addEventListener('click', function(){
+
+        let newcode=`
+<pre id="rustCode" class="codeText">
+    <code class="language-rust">
+fn complementary(seq: &str) -> String {
+    let newseq = seq.to_uppercase();
+    let mut complementary_sequence = String::new();
+
+    for base in newseq.chars() {
+        let complementary_base = match base {
+            'A' => 'T',
+            'T' => 'A',
+            'C' => 'G',
+            'G' => 'C',
+            'U' => 'T', 
+            _ => base,
+        };
+        complementary_sequence.push(complementary_base);
+    }
+    
+    format!("The complementary strand is {}",complementary_sequence)
+}
+</code>
+</pre>
+<pre id="pythonCode" class="codeText">
+    <code class="language-python">
+def get_complementary_dna_sequence(dna_sequence):
+    complement_mapping = {
+        'A': 'T',
+        'T': 'A',
+        'C': 'G',
+        'G': 'C'
+    }
+    
+    complementary_sequence = []
+    
+    for nucleotide in dna_sequence:
+        complementary_sequence.append(complement_mapping[nucleotide])
+    
+    return ''.join(complementary_sequence)
+</code>
+</pre>`;
         submit.className='DNATool2';
+        code.innerHTML=newcode;
+        var blocks = code.querySelectorAll('pre, code');
+        blocks.forEach(hljs.highlightBlock);
         submit.addEventListener('click', function() {
             var textarea = document.querySelector('#seq-text');
             var output = document.querySelector('.outputss');
