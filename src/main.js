@@ -121,22 +121,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const RNA_data = document.querySelector('.RNA-data');
 
     DNA.addEventListener('click', function() {
-        if (DNA_data.style.display === "none") {
-            DNA_data.style.display = "block";
-            RNA_data.style.display = "none";
-        } else {
-            DNA_data.style.display = "none";
-        }
+        DNA_data.style.display = "block";
+        RNA_data.style.display = "none";
+
     });
     RNA.addEventListener('click', function() {
-        if (RNA_data.style.display === "none") {
-            RNA_data.style.display = "block";
-            DNA_data.style.display="none";
-        } else {
-            RNA_data.style.display = "none";
-        }
+        RNA_data.style.display = "block";
+        DNA_data.style.display="none";    
     });
-});
+})
 
 
 // input area click functionalities
@@ -174,40 +167,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const copy = document.querySelector('#copybtn');
 
     rust.addEventListener('click', function() {
-        if (rust_code.style.display === 'none') {
-            rust_code.style.display = 'block';
-            python_code.style.display = 'none';
-            rust.style.backgroundColor = '#e6edf3';
-            rust.style.border = '1px solid #e6edf3';
-            rust.style.color = '#656d76';
-            python.style.backgroundColor = '#656d76';
-            python.style.border = '1px solid #656d76';
-            python.style.color = '#e6edf3';
-        } else {
-            rust_code.style.display = 'none';
-        }
+        rust_code.style.display = 'block';
+        python_code.style.display = 'none';
+        rust.style.backgroundColor = '#e6edf3';
+        rust.style.border = '1px solid #e6edf3';
+        rust.style.color = '#656d76';
+        python.style.backgroundColor = '#656d76';
+        python.style.border = '1px solid #656d76';
+        python.style.color = '#e6edf3';
     });
 
     python.addEventListener('click', function() {
-        if (python_code.style.display === 'none') {
-            python_code.style.display = 'block';
-            rust_code.style.display = 'none';
-            python.style.backgroundColor = '#e6edf3';
-            python.style.border = '1px solid #e6edf3';
-            python.style.color = '#656d76';
-            rust.style.backgroundColor = '#656d76';
-            rust.style.border = '1px solid #656d76';
-            rust.style.color = '#e6edf3';
-        } else {
-            python_code.style.display = 'none';
-        }
+        python_code.style.display = 'block';
+        rust_code.style.display = 'none';
+        python.style.backgroundColor = '#e6edf3';
+        python.style.border = '1px solid #e6edf3';
+        python.style.color = '#656d76';
+        rust.style.backgroundColor = '#656d76';
+        rust.style.border = '1px solid #656d76';
+        rust.style.color = '#e6edf3';
     });
 
     copy.addEventListener('click', function() {
         if (python_code.style.display === "block") {
             navigator.clipboard.writeText(python_code.innerText)
                 .then(() => {
-                    console.log('Python code copied to clipboard');
+                    window.alert('Python code copied to clipboard');
                 })
                 .catch(err => {
                     console.error('Failed to copy Python code: ', err);
@@ -215,15 +200,14 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             navigator.clipboard.writeText(rust_code.innerText)
                 .then(() => {
-                    console.log('Rust code copied to clipboard');
+                    window.alert('Rust code copied to clipboard');
                 })
                 .catch(err => {
                     console.error('Failed to copy Rust code: ', err);
                 });
         }
     });
-});
-
+});                        
 
 
 // submit event
