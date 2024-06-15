@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Importing Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-<!-- and it's easy to individually load additional languages -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
-
-    <script>hljs.highlightAll();</script>
+    
 </head>
 <body>
     <nav>
@@ -20,75 +13,77 @@
         <a href="#contact">Contact</a>
         <a href="#about">About Us</a>
     </nav>
-    <div class="main"> 
-        <div class="sidebar">
-            <div class="sidebar1">
-                <button class="DNA"><b><a href="">DNA</a></b></button>
-                <button class="RNA"><b><a href="">RNA</a></b></button>
-                <button class="Protein"><b><a href="">PRO</a></b></button>
-            </div>
-            <div class="sidebar2">
-                <div class="DNA_data">
-                    <h3>DNA</h3>
-                    <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
-                    <a href="Complementary.html">Complementary Strand</a>
-                    <a href="Transcription.html">Transcription</a>
-                    <a href="GC-Content.html">GC Content</a>
-                    <a href="DNA-motif.html">DNA Motif finding</a>
-                    <a href="Translation.html">Translation</a>
-                </div>
-                <div class="RNA_data">
-                    <h3>RNA</h3>
-                    <a href="">DNA Nucleotide Counting</a>
-                    <a href="">Complementary Strand</a>
-                    <a href="">Transcription</a>
-                    <a href="">GC Content</a>
-                    <a href="practice.html">DNA Motif finding</a>
-                    <a href="index2.html">Translation</a>
-                </div>
-            </div>
+    <div class="container">
+        <div class="left_sidebar">
+            <button class="DNA"><b>DNA</b></button>
+            <button class="RNA"><b>RNA</b></button>
+            <button class="Protein"><b>PRO</b></button>
         </div>
-        <div class="mainscreen">
-            <div class="mainscreen_data">
-                <div class="mainscreen_data_input">
-                    <div class="NC_input">
-                        <div class="NC_inputfield">
-                            <h3>Enter Your DNA Sequence</h3>
-                            <textarea id="NCtextarea" cols="30" rows="10"></textarea>
+        <div class="right_sidebar">
+            <div class="DNA-data">
+                <h3 class="DNA"><b>DNA Section</b></h3>
+                <a href="Nucleotide_Counting.html" >DNA Nucleotide Counting</a>
+                <a href="Complementary.html">Complementary Strand</a>
+                <a href="Transcription.html" >Transcription</a>
+                <a href="GC.html">GC Content</a>
+                <a href="DNA_motif.html">DNA Motif finding</a>
+                <a href="#">Translation</a>
+            </div>                      
+            <div class="RNA-data">
+                <h3 class="RNA"><b>RNA Section</b></h3>
+                <a href="#">RNA Nucleotide Counting</a>
+                <a href="#">Complementary Strand</a>
+                <a href="#">Transcription</a>
+                <a href="#">GC Content</a>
+                <a href="practice.html">DNA Motif finding</a>
+                <a href="index2.html">Translation</a>
+            </div>
+            <div class="sidr"></div>  
+        </div>
+        <div class="main">
+            <div class="maindata">
+                <div class="input_area">
+                    <div class="entry">
+                    <div class="heading">
+                        Enter Your Sequence
+                    </div>
+                    <div class="bottom">
+                        <div class="text-area">
+                            <textarea name="sequence" id="NC_seq-text" cols="30" rows="7"></textarea>
                         </div>
-                        <div class="NC_buttons">
-                            <input type="submit" class="NC_submit">
-                            <button class="NC_reset">Reset</button>
-                            <button class="NC_code">Code</button>
+                        <div class="btns">
+                            <input type="submit" class="DNATool1" id="NC_submitbtn">
+                            <button class="btn" id="resetbtn">Reset</button>
+                            <button class="btn" id="codebtn">Code</button>
                         </div>
                     </div>
                 </div>
-                <div class="data-code">
-                    <div class="data-code-header">
-                        <h3 class="Code_heading">Code</h3>
-                        <div class="data-code-header-buttons">
-                            <button class="Rust_code"><b><a href="">Rust</a></b></button>
-                            <button class="Python_code"><b><a href="">Python</a></b></button>
-                        </div>
+                </div>
+                <div class="codearea">
+                    <div class="coder"></div>
+                    <div class="codedata">
+                         <div class="top">
+                    <p class="heading">Code</p>
+                    <div class="langs">
+                        <button class="codeSelect" id="rust">Rust</button>
+                        <button class="codeSelect" id="python">Python</button>
                     </div>
-                    <div class="NC_code_terminal_Rust">
-                        <textarea id="NC_code_terminal-rust" cols="50" rows="34" readonly class="NC_rust_code">
-                        
+                </div>
+                <div class="codeArea">
+                    <pre id="rustCode" class="codeText">
+                        <code class="language-rust">
 fn n_count(seq: &str) -> String {
-let newseq = seq.to_uppercase();
-let count_a = newseq.matches('A').count();                              let count_t = newseq.matches('T').count();
-let count_g = newseq.matches('G').count();
-let count_c = newseq.matches('C').count();
-format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+    let newseq = seq.to_uppercase();
+    let count_a = newseq.matches('A').count();
+    let count_t = newseq.matches('T').count();
+    let count_g = newseq.matches('G').count();
+    let count_c = newseq.matches('C').count();
+    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
 }
-                        </textarea>
-                        <div class="data-code-footer">
-                            <button class="NC_Rust_copy">Copy</button>
-                            <button class="NC_Rust_Test">Test</button>
-                        </div>
-                    </div>
-                    <div class="NC_code_terminal-python">
-                        <textarea id="" cols="50" rows="34" readonly class="NC_python_code">
+</code>
+                    </pre>
+                    <pre id="pythonCode" class="codeText">
+                        <code class="language-python">
 DNA=input("Enter your DNA Sequence: ")
 DNA=DNA.upper()
 Adenine= DNA.count("A")
@@ -99,152 +94,33 @@ print("A: " ,Adenine)
 print("G: ", Guanine)
 print("C: ", Cytosine)
 print("T: ", Thyamine)
-                        </textarea>
-                        <div class="data-code-footer">
-                            <button class="NC_python_copy">Copy</button>
-                            <button class="NC_python_Test">Test</button>
-                        </div>
+</code>
+</pre>
+
+                </div>
+                <div class="bottom2">
+                    <button class="btn" id="copybtn">Copy</button>
+                </div>
                     </div>
                 </div>
             </div>
-            <div class="Mainscreen-terminal">
-                <h3>Terminal</h3>
-                <div class="NC_terminaloutput">
-                  <p id="NC_para_output"></p>
+            <div class="terminal">
+                <div class="terminalr"></div>
+                <div class="terminal_data">
+                
+                    <p class="NC_outputs"></p>
+                </div>
             </div>
         </div>
     </div>
-    <!-- <div class="main">
-            <div class="mainss">
-                <img src="assets/Logo.png" alt="Logo">
-            </div>
-        </div>
-    -->
 </body>
-<script src="main.js"></script>
+    <!-- Importing Highlight js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="main.js"></script>
+
+    <script>hljs.highlightAll();</script>
 </html>
-<div class="sidebar">
-    <div class="left_sidebar">
-        <button class="DNA"><b>DNA</b></button>
-        <button class="RNA"><b>RNA</b></button>
-        <button class="Protein"><b>PRO</b></button>
-    </div>
-    <div class="right_sidebar">
-        <div class="DNA-data">
-            <h3 class="DNA"><b>DNA Section</b></h3>
-            <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
-            <a href="Complementary.html">Complementary Strand</a>
-            <a href="Transcription.html">Transcription</a>
-            <a href="GC-Content.html">GC Content</a>
-            <a href="DNA-motif.html">DNA Motif finding</a>
-            <a href="Translation.html">Translation</a>
-        </div>                      
-        <div class="RNA-data">
-            <h3 class="RNA"><b>RNA Section</b></h3>
-            <a href="">DNA Nucleotide Counting</a>
-            <a href="">Complementary Strand</a>
-            <a href="">Transcription</a>
-            <a href="">GC Content</a>
-            <a href="practice.html">DNA Motif finding</a>
-            <a href="index2.html">Translation</a>
-            </div>
-        <div class="sidr"></div>  
-    </div>
-</div>
-
-
-<!-- :root{
-  --navbackgroundcolor:#384554;
-  --sidebarbackgroundcolor:#656d76;
-  --terminalbackgroundcolor:#0d1823;
-  --inputbackgroundcolor:#e6edf3;
-  --maincolor:#7d8590;
-  --main_font:Arial;
-}
-*{
-  margin: 0;
-  padding: 0;
-  font-family:var(--main_font);
-}
-a{
-  text-decoration: none;
-  color: var(--inputbackgroundcolor);
-}
-nav{
-  height: 50px;
-  background-color: var(--navbackgroundcolor);
-  display: flex;
-  align-items: center;
-}
-nav a{
-  margin-left: 20px;
-}
-.container{
-  display: flex;
-}
-.sidebar{
-  display: flex;
-  width: 25%;
-  height: 100vh;
-}
-.left_sidebar{
-  background-color: var(--navbackgroundcolor);
-  width: 21%;
-}
-.left_sidebar button{
-  height: 60px;
-  width: 60px;
-  background-color: var(--sidebarbackgroundcolor);
-  border: 1px solid var(--sidebarbackgroundcolor);
-  border-radius: 45px;
-  margin-top: 20px;
-  margin-left: 9%;
-  font-size: 25px;
-  color: var(--inputbackgroundcolor);
-}
-.left_sidebar button:active{
-  border: 1px solid var(--inputbackgroundcolor);
-}
-.right_sidebar{
-  background-color: var(--sidebarbackgroundcolor);
-  width: 80%;
-  position: relative; 
-  padding-top: 20px;
-}
-
-.DNA-data{
-  width: 100%;
-}
-.DNA-data a{
-  display: flex;
-  padding-left: 20px;
-  padding-top: 8px;
-  width: 93%;
-  flex-wrap: wrap;
-  font-size: 20px;
-}
-.DNA-data a:hover{
-  background-color: var(--maincolor);
-}
-.right_sidebar h3{
-  margin-left: 10px;
-  color: var(--inputbackgroundcolor);
-  cursor: pointer;
-  font-size: 20px;
-  overflow: hidden;
-}
-.RNA-data{
-  width: 100%;
-  display: none;
-}
-.RNA-data a{
-  display: flex;
-  padding-left: 20px;
-  padding-top: 8px;
-  width: 93%;
-  flex-wrap: wrap;
-  font-size: 20px;
-}
-.RNA-data a:hover{
-  background-color: var(--maincolor);
-} -->

@@ -35,6 +35,12 @@ nav a {
   height: calc(100vh - 50px); 
 }
 
+
+
+
+
+/* Sidebar */
+
 .left_sidebar {
   background-color: var(--navbackgroundcolor);
   width: 5%;
@@ -50,6 +56,7 @@ nav a {
   margin-left: 9%;
   font-size: 25px;
   color: var(--inputbackgroundcolor);
+  cursor: pointer;
 }
 
 .left_sidebar button:active {
@@ -105,7 +112,19 @@ nav a {
 
 .RNA-data a:hover {
   background-color: var(--maincolor);
-}
+  }
+.sidr {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background-color: var(--navbackgroundcolor);
+  cursor: ew-resize;
+  top: 0;
+  right: 0;
+ }
+
+
+/* main */
 
 .main {
   background-color: var(--maincolor);
@@ -122,23 +141,13 @@ nav a {
   background-color: var(--maincolor);
 }
 
+
+/* Input field */
+
 .input_area {
   display: flex;
   flex-grow: 1;
   /* width: 70%; */
-}
-
-
-
-
-.sidr {
-  position: absolute;
-  width: 2px;
-  height: 100%;
-  background-color: var(--navbackgroundcolor);
-  cursor: ew-resize;
-  top: 0;
-  right: 0;
 }
 .entry{
   display: flex;
@@ -178,9 +187,11 @@ nav a {
   border: none;
   background-color: var(--sidebarbackgroundcolor);
   color: #fff;
+  cursor: pointer;
 }
 
 
+/* Codearea */
 
 .codearea {
   flex-shrink: 0;
@@ -223,6 +234,7 @@ nav a {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   font-weight: bold;
+  cursor: pointer;
 }
 #rust{
   background-color: var(--inputbackgroundcolor);
@@ -276,6 +288,8 @@ nav a {
 
 
 
+/* Terminal */
+
 
 .terminal {
   background-color: var(--terminalbackgroundcolor);
@@ -305,4 +319,111 @@ nav a {
   margin-left: 10px;
   color: white;
 
+}
+
+
+
+
+
+
+/* Multiple Pages */
+
+
+
+/*  Nucleotide counting Page */
+
+#NC_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#NC_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+
+
+
+/* Complementary Page */
+
+#Comp_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#Comp_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+
+
+
+
+/* GC Page */
+
+#GC_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#GC_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+
+
+/* Transcription Page */
+
+#Transcription_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#Transcription_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+
+
+
+/* DNA Motif Page */
+
+#Motif_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#Motif_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+.text-area h3{
+  color: var(--inputbackgroundcolor);
+  width: 200px;
+  font-size: 20px;
 }

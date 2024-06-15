@@ -25,9 +25,9 @@
                 <a href="Nucleotide_Counting.html" >DNA Nucleotide Counting</a>
                 <a href="Complementary.html">Complementary Strand</a>
                 <a href="Transcription.html" >Transcription</a>
-                <a href="GC.html">GC Content</a>
-                <a href="DNA_motif.html">DNA Motif finding</a>
-                <a href="#">Translation</a>
+                <a href="GC.html" >GC Content</a>
+                <a href="DNA_motif.html" >DNA Motif finding</a>
+                <a href="#" class="Dtool6">Translation</a>
             </div>                      
             <div class="RNA-data">
                 <h3 class="RNA"><b>RNA Section</b></h3>
@@ -49,10 +49,12 @@
                     </div>
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
+                            <textarea name="sequence" id="Motif_seq-text" cols="30" rows="7"></textarea>
+                            <h3>Enter your motif to find its location</h3>
+                            <textarea name="motif" id="Motif" cols="20" rows="1"></textarea>
                         </div>
                         <div class="btns">
-                            <input type="submit" class="DNATool1" id="submitbtn">
+                            <input type="submit" class="DNATool1" id="Motif_submitbtn">
                             <button class="btn" id="resetbtn">Reset</button>
                             <button class="btn" id="codebtn">Code</button>
                         </div>
@@ -72,28 +74,32 @@
                 <div class="codeArea">
                     <pre id="rustCode" class="codeText">
                         <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+fn dna_motif(seq: &str, motif: &str) -> String {
+    let sequence = seq;
+    let motif = motif;
+    let seq_len = sequence.len();
+    let motif_len = motif.len();
+    let mut locations = Vec::new();
+
+    if motif_len > seq_len {
+        return "Motif is longer than the sequence".to_string();
+    }
+    for i in 0..=(seq_len - motif_len) {
+        if &sequence[i..i + motif_len] == motif {
+            locations.push(i + 1); 
+        }
+    }
+    format!("The given motif is at positions {:?}", locations)
 }
 </code>
                     </pre>
                     <pre id="pythonCode" class="codeText">
                         <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
+a="atcgggtccgt"
+k='gt'
+for i in range(len(a)-len(k)+1):
+    if(a[i:i+len(k)]==k):
+        print(i+1)
 </code>
 </pre>
 
@@ -108,7 +114,7 @@ print("T: ", Thyamine)
                 <div class="terminalr"></div>
                 <div class="terminal_data">
                 
-                    <p class="outputss"></p>
+                    <p class="Motif_outputs"></p>
                 </div>
             </div>
         </div>

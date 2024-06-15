@@ -134,18 +134,11 @@ document.addEventListener("DOMContentLoaded", function() {
 //DNA Tools Handeling
 
 document.addEventListener("DOMContentLoaded", function(){
-    const Dtool1 = document.querySelector(".Dtool1");
-    const Dtool2 = document.querySelector(".Dtool2");
-    const Dtool3 = document.querySelector(".Dtool3");
-    const Dtool4 = document.querySelector(".Dtool4");
-    const Dtool5 = document.querySelector(".Dtool5");
-    const Dtool6 = document.querySelector(".Dtool6");
+
     const submit = document.querySelector("#submitbtn");
     const terminal = document.querySelector('.terminal');
-    const code = document.querySelector('.codeArea');
 
-    Dtool1.addEventListener('click', function(){
-        submit.className='DNATool1';
+
         submit.addEventListener('click', function() {
             var textarea = document.querySelector('#seq-text');
             var output = document.querySelector('.outputss');
@@ -154,82 +147,14 @@ document.addEventListener("DOMContentLoaded", function(){
             terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
         });
     })
-    Dtool2.addEventListener('click', function(){
-
-        let newcode=`
-<pre id="rustCode" class="codeText">
-    <code class="language-rust">
-fn complementary(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let mut complementary_sequence = String::new();
-
-    for base in newseq.chars() {
-        let complementary_base = match base {
-            'A' => 'T',
-            'T' => 'A',
-            'C' => 'G',
-            'G' => 'C',
-            'U' => 'T', 
-            _ => base,
-        };
-        complementary_sequence.push(complementary_base);
-    }
     
-    format!("The complementary strand is {}",complementary_sequence)
-}
-</code>
-</pre>
-<pre id="pythonCode" class="codeText">
-    <code class="language-python">
-def get_complementary_dna_sequence(dna_sequence):
-    complement_mapping = {
-        'A': 'T',
-        'T': 'A',
-        'C': 'G',
-        'G': 'C'
-    }
-    
-    complementary_sequence = []
-    
-    for nucleotide in dna_sequence:
-        complementary_sequence.append(complement_mapping[nucleotide])
-    
-    return ''.join(complementary_sequence)
-</code>
-</pre>`;
-        submit.className='DNATool2';
-        code.innerHTML=newcode;
-        var blocks = code.querySelectorAll('pre, code');
-        blocks.forEach(hljs.highlightBlock);
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#seq-text');
-            var output = document.querySelector('.outputss');
-            var text = textarea.value;
-            invoke('complementary', {seq: text}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
-    Dtool3.addEventListener('click', function(){
-        submit.className='DNATool3';
-    })
-    Dtool4.addEventListener('click', function(){
-        submit.className='DNATool4';
-    })
-    Dtool5.addEventListener('click', function(){
-        submit.className='DNATool5';
-    })
-    Dtool6.addEventListener('click', function(){
-        submit.className='DNATool6';
-    })
-})
-
-// input area click functionalities
 
 document.addEventListener("DOMContentLoaded",function(){
     const code = document.querySelector("#codebtn");
     const codedata = document.querySelector(".codearea");
     const reset = document.querySelector("#resetbtn");
     const textarea = document.querySelector("#seq-text");
+    const terminal = document.querySelector('.terminal');
 
 
     code.addEventListener('click',function(){
@@ -242,6 +167,8 @@ document.addEventListener("DOMContentLoaded",function(){
 
     reset.addEventListener('click',function(){
         textarea.value = '';
+        terminal.style.display='none';
+        codedata.style.display='none';
     });
 
 
@@ -301,3 +228,167 @@ document.addEventListener('DOMContentLoaded', function() {
 });                        
 
 
+
+
+
+
+// NC Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#NC_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#NC_seq-text');
+            var output = document.querySelector('.NC_outputs');
+            var text = textarea.value;
+            invoke('n_count', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#NC_seq-text");
+        const terminal = document.querySelector('.terminal');
+    
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
+
+
+
+
+
+// Complementary Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#Comp_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#Comp_seq-text');
+            var output = document.querySelector('.Comp_outputs');
+            var text = textarea.value;
+            invoke('complementary', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#Comp_seq-text");
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
+
+
+
+// GC Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#GC_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#GC_seq-text');
+            var output = document.querySelector('.GC_outputs');
+            var text = textarea.value;
+            invoke('gc', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#GC_seq-text");
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
+
+
+
+
+
+// Transcription Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#Transcription_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#Transcription_seq-text');
+            var output = document.querySelector('.Transcription_outputs');
+            var text = textarea.value;
+            invoke('transcription', {seq: text}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#Transcription_seq-text");
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
+
+
+
+
+
+// DNA Motif Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#Motif_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#Motif_seq-text');
+            var motif = document.querySelector('#Motif');
+            var output = document.querySelector('.Motif_outputs');
+            var text = textarea.value;
+            var motif_value=motif.value
+            invoke('dna_motif', {seq: text,motif: motif_value}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#Motif_seq-text");
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });

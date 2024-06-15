@@ -24,10 +24,10 @@
                 <h3 class="DNA"><b>DNA Section</b></h3>
                 <a href="Nucleotide_Counting.html" >DNA Nucleotide Counting</a>
                 <a href="Complementary.html">Complementary Strand</a>
-                <a href="Transcription.html" >Transcription</a>
-                <a href="GC.html">GC Content</a>
+                <a href="Transcription" >Transcription</a>
+                <a href="GC.html" >GC Content</a>
                 <a href="DNA_motif.html">DNA Motif finding</a>
-                <a href="#">Translation</a>
+                <a href="#" class="Dtool6">Translation</a>
             </div>                      
             <div class="RNA-data">
                 <h3 class="RNA"><b>RNA Section</b></h3>
@@ -49,10 +49,10 @@
                     </div>
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
+                            <textarea name="sequence" id="Comp_seq-text" cols="30" rows="7"></textarea>
                         </div>
                         <div class="btns">
-                            <input type="submit" class="DNATool1" id="submitbtn">
+                            <input type="submit" class="DNATool1" id="Comp_submitbtn">
                             <button class="btn" id="resetbtn">Reset</button>
                             <button class="btn" id="codebtn">Code</button>
                         </div>
@@ -72,13 +72,23 @@
                 <div class="codeArea">
                     <pre id="rustCode" class="codeText">
                         <code class="language-rust">
-fn n_count(seq: &str) -> String {
+fn complementary(seq: &str) -> String {
     let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+    let mut complementary_sequence = String::new();
+
+    for base in newseq.chars() {
+        let complementary_base = match base {
+            'A' => 'T',
+            'T' => 'A',
+            'C' => 'G',
+            'G' => 'C',
+            'U' => 'T', 
+            _ => base,
+        };
+        complementary_sequence.push(complementary_base);
+    }
+    
+    format!("The complementary strand is {}",complementary_sequence)
 }
 </code>
                     </pre>
@@ -108,7 +118,7 @@ print("T: ", Thyamine)
                 <div class="terminalr"></div>
                 <div class="terminal_data">
                 
-                    <p class="outputss"></p>
+                    <p class="Comp_outputs"></p>
                 </div>
             </div>
         </div>
