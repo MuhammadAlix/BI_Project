@@ -89,9 +89,34 @@ fn dna_motif(seq: &str, motif: &str) -> String {
     format!("The given motif is at positions {:?}", locations)
 }
 
+#[tauri::command]
+fn point_mutation(seq1: &str, seq2: &str) -> String {
+    let first_seq = seq1.to_uppercase();
+    let second_seq = seq2.to_uppercase();
+    let mut c = 0;
+
+    let first_chars: Vec<char> = first_seq.chars().collect();
+    let second_chars: Vec<char> = second_seq.chars().collect();
+
+    let first_len = first_chars.len();
+    let second_len = second_chars.len();
+
+    if first_len != second_len {
+        return "Strings are of different lengths".to_string();
+    }
+
+    for i in 0..first_len {
+        if first_chars[i] != second_chars[i] {
+            c += 1;
+        }
+    }
+
+    format!("There are {} mutations in your sequences", c)
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

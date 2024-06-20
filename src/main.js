@@ -392,3 +392,38 @@ document.addEventListener("DOMContentLoaded", function(){
             codedata.style.display='none';
         });
     });
+
+
+
+// Point Mutations JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#Point_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#Point1_seq-text');
+            var textarea2 = document.querySelector('#Point2_seq-text');
+            var output = document.querySelector('.Point_outputs');
+            var Point1_value = textarea.value;
+            var Point2_value=textarea2.value;
+            invoke('point_mutation', {seq1: Point1_value,seq2: Point2_value}).then((result) => output.textContent=result);
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        var textarea = document.querySelector('#Point1_seq-text');
+        var textarea2 = document.querySelector('#Point2_seq-text');
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            textarea2.value='';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });

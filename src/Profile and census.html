@@ -29,7 +29,6 @@
                 <a href="DNA_motif.html">DNA Motif finding</a>
                 <a href="Point_mutations.html" >Point Mutations</a>
                 <a href="Profile and census.html">Profile and Census</a>
-
             </div>                      
             <div class="RNA-data">
                 <h3 class="RNA"><b>RNA Section</b></h3>
@@ -51,11 +50,11 @@
                     </div>
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="Transcription_seq-text" cols="30" rows="7"></textarea>
+                            <textarea name="sequence" id="ProCen_seq-text" cols="30" rows="7"></textarea>
                         </div>
                         <div class="btns">
-                            <input type="submit" class="DNATool1" id="Transcription_submitbtn">
-                            <button class="btn" id="resetbtn">Reset</button>
+                            <input type="submit" class="DNATool1" id="ProCen_submitbtn">
+                            <!-- <button class="btn" id="resetbtn">Reset</button>   -->
                             <button class="btn" id="codebtn">Code</button>
                         </div>
                     </div>
@@ -110,7 +109,11 @@ print("T: ", Thyamine)
                 <div class="terminalr"></div>
                 <div class="terminal_data">
                 
-                    <p class="Transcription_outputs"></p>
+                    <h2>Profile Matrix</h2>
+                    <pre class="NC_profile"></pre>
+                    <h2>Consensus Sequence</h2>
+                    <pre class="NC_consensus"></pre>
+                
                 </div>
             </div>
         </div>

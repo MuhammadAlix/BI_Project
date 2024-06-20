@@ -46,15 +46,16 @@
             <div class="maindata">
                 <div class="input_area">
                     <div class="entry">
-                    <div class="heading">
-                        Enter Your Sequence
-                    </div>
+   
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="Transcription_seq-text" cols="30" rows="7"></textarea>
+                            <h3>Enter Your First Sequence</h3>
+                            <textarea name="sequence" id="Point1_seq-text" cols="30" rows="2"></textarea>
+                            <h3>Enter Your Second Sequence</h3>
+                            <textarea name="sequence" id="Point2_seq-text" cols="30" rows="2"></textarea>
                         </div>
-                        <div class="btns">
-                            <input type="submit" class="DNATool1" id="Transcription_submitbtn">
+                        <div class="Point_btns">
+                            <input type="submit" class="DNATool1" id="Point_submitbtn">
                             <button class="btn" id="resetbtn">Reset</button>
                             <button class="btn" id="codebtn">Code</button>
                         </div>
@@ -74,28 +75,42 @@
                 <div class="codeArea">
                     <pre id="rustCode" class="codeText">
                         <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+fn main() {
+    let a = "atcggtacga";
+    let b = "ataggaaaga";
+    let mut c = 0; // Define `c` as mutable
+
+    let a_chars: Vec<char> = a.chars().collect();
+    let b_chars: Vec<char> = b.chars().collect();
+
+    let a_len = a_chars.len();
+    let b_len = b_chars.len();
+
+    if a_len != b_len {
+        println!("Strings are of different lengths");
+        return;
+    }
+
+    for i in 0..a_len {
+        if a_chars[i] != b_chars[i] {
+            c += 1;
+        }
+    }
+
+    println!("{}", c);
 }
 </code>
                     </pre>
                     <pre id="pythonCode" class="codeText">
                         <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
+
+a="atcggtacga"
+b="ataggaaaga"
+c=0
+for i in range(len(a)):
+    if(a[i]!=b[i]):
+        c+=1  
+print(c)  
 </code>
 </pre>
 
@@ -110,7 +125,7 @@ print("T: ", Thyamine)
                 <div class="terminalr"></div>
                 <div class="terminal_data">
                 
-                    <p class="Transcription_outputs"></p>
+                    <p class="Point_outputs"></p>
                 </div>
             </div>
         </div>

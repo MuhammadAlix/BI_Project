@@ -168,6 +168,7 @@ nav a {
   display: flex;
   padding: 10px;
   flex-shrink: 1;
+  
 }
 #seq-text{
   border-radius: 15px;
@@ -179,6 +180,7 @@ nav a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 120px;
 }
 #submitbtn, .btn{
   font-size: 15px;
@@ -426,4 +428,41 @@ nav a {
   color: var(--inputbackgroundcolor);
   width: 200px;
   font-size: 20px;
+}
+
+
+
+/* Point Mutations Page */
+
+#Point_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#Point1_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+#Point2_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+.text-area h3{
+  color: var(--inputbackgroundcolor);
+  width: 300px;
+  font-size: 20px;
+}
+.Point_btns{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  padding-left: 100px;
 }
