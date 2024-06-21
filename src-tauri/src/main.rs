@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use std::collections::HashMap;
-// use tauri::command;
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
 fn n_count(seq: &str) -> String {
@@ -172,9 +171,55 @@ fn calculate_profile_matrix_and_consensus(sequences: Vec<String>) -> Result<(Has
 }
 
 
+
+// Kmer Composition Rust
+
+fn generate_kmers_recursive(k: usize, current: String, alphabet: &[char], kmers: &mut Vec<String>) {
+    if current.len() == k {
+        kmers.push(current);
+        return;
+    }
+    for &c in alphabet {
+        let mut next = current.clone();
+        next.push(c);
+        generate_kmers_recursive(k, next, alphabet, kmers);
+    }
+}
+
+fn generate_kmers(k: usize) -> Vec<String> {
+    let alphabet = ['A', 'C', 'G', 'T'];
+    let mut kmers = Vec::new();
+    generate_kmers_recursive(k, String::new(), &alphabet, &mut kmers);
+    kmers.sort();
+    kmers
+}
+
+#[tauri::command]
+fn kmer_composition(sequence: &str, k: usize) -> Vec<usize> {
+    let kmers = generate_kmers(k);
+    let mut kmer_count: HashMap<String, usize> = HashMap::new();
+    
+    for kmer in &kmers {
+        kmer_count.insert(kmer.clone(), 0);
+    }
+    
+    for i in 0..=(sequence.len() - k) {
+        let kmer: String = sequence[i..i + k].to_string();
+        if let Some(count) = kmer_count.get_mut(&kmer) {
+            *count += 1;
+        }
+    }
+    
+    kmers.iter().map(|kmer| *kmer_count.get(kmer).unwrap_or(&0)).collect()
+}
+#[tauri::command]
+fn parse_fasta(fasta_string: &str) -> String {
+    fasta_string.lines().skip(1).collect()
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

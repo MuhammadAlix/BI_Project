@@ -484,3 +484,47 @@ document.addEventListener("DOMContentLoaded", function(){
             codedata.style.display='none';
         });
     });
+
+
+
+// Kmer Composition JS
+
+document.addEventListener("DOMContentLoaded", function() {
+    const submit = document.querySelector("#Kmer_comp_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+    submit.addEventListener('click', function() {
+        var textarea = document.querySelector('#Kmer_comp_seq-text');
+        var output = document.querySelector('.Kmer_comp_outputs');
+        var text = textarea.value.trim();
+
+        if (!text) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('parse_fasta', { fastaString: text }).then(sequence => {
+            return invoke('kmer_composition', { sequence, k: 4 });
+        }).then(composition => {
+            output.textContent = composition.join(' ');
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        }).catch(error => {
+            console.error('Error:', error);
+            output.textContent = 'An error occurred';
+        });
+    });
+});
+
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        var textarea = document.querySelector('#Kmer_comp_seq-text');
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
