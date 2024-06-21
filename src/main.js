@@ -427,3 +427,60 @@ document.addEventListener("DOMContentLoaded", function(){
             codedata.style.display='none';
         });
     });
+
+
+
+
+
+// Profile Census Page JS
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const submit = document.querySelector("#ProCen_submitbtn");
+    const terminal = document.querySelector('.terminal');
+
+        submit.addEventListener('click', function() {
+            
+            var textarea = document.querySelector('#ProCen_seq-text');
+            var outputProfile = document.querySelector('.ProCen_profile');
+            var outputConsensus = document.querySelector('.ProCen_consensus');
+
+            var text = textarea.value;
+            var sequences = text.split("\n").filter(seq => seq.trim().length > 0);
+
+            invoke('calculate_profile_matrix_and_consensus', { sequences: sequences }).then((result) => {
+                // result will be an object containing the profile matrix and the consensus sequence
+                const profileMatrix = result[0];
+                const consensusSequence = result[1];
+                
+
+                // Format the profile matrix for display
+                let profileText = "Profile Matrix:\n";
+                for (const [nucleotide, counts] of Object.entries(profileMatrix)) {
+                    profileText += `${nucleotide}: ${counts.join(' ')}\n`;
+                }
+
+                // Display the profile matrix and consensus sequence
+                outputProfile.textContent = profileText;
+                outputConsensus.textContent = `Consensus Sequence: ${consensusSequence}`;
+            }).catch((error) => {
+                console.error('Error:', error);
+                outputProfile.textContent = 'An error occurred while calculating the profile matrix and consensus sequence.';
+                outputConsensus.textContent = '';
+            });
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        });
+    })
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#ProCen_seq-text");
+        const terminal = document.querySelector('.terminal');
+
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
