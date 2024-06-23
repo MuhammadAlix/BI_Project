@@ -115,21 +115,45 @@ terminalResizer(terminal, resizeHandle);
 // sidebar click functionalities
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Select elements
     const DNA = document.querySelector('.DNA');
     const DNA_data = document.querySelector('.DNA-data');
     const RNA = document.querySelector('.RNA');
     const RNA_data = document.querySelector('.RNA-data');
+    const Protein = document.querySelector('.Protein');
+    const Protein_data = document.querySelector('.Protein-data');
+
+    // Check if elements are successfully selected
+    if (!DNA || !DNA_data || !RNA || !RNA_data || !Protein || !Protein_data) {
+        console.error("One or more elements not found.");
+        console.log("DNA:", DNA);
+        console.log("DNA_data:", DNA_data);
+        console.log("RNA:", RNA);
+        console.log("RNA_data:", RNA_data);
+        console.log("Protein:", Protein);
+        console.log("Protein_data:", Protein_data);
+        return;
+    }
+
+    // Add event listeners
+    Protein.addEventListener('click', function() {
+        Protein_data.style.display = "block";
+        DNA_data.style.display = "none";    
+        RNA_data.style.display = "none";  
+    });
 
     DNA.addEventListener('click', function() {
         DNA_data.style.display = "block";
         RNA_data.style.display = "none";
-
+        Protein_data.style.display = "none";
     });
+
     RNA.addEventListener('click', function() {
         RNA_data.style.display = "block";
-        DNA_data.style.display="none";    
+        DNA_data.style.display = "none";    
+        Protein_data.style.display = "none";
     });
-})
+});
 
 //DNA Tools Handeling
 
@@ -522,6 +546,50 @@ document.addEventListener("DOMContentLoaded", function() {
         var textarea = document.querySelector('#Kmer_comp_seq-text');
         const terminal = document.querySelector('.terminal');
 
+        reset.addEventListener('click',function(){
+            textarea.value = '';
+            terminal.style.display='none';
+            codedata.style.display='none';
+        });
+    });
+
+
+
+
+    // Protein_Mass_Calculation Page JS
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const submit = document.querySelector("#Pro_Mass_submitbtn");
+        const terminal = document.querySelector('.terminal');
+    
+        submit.addEventListener('click', function() {
+            var textarea = document.querySelector('#Pro_Mass_seq-text');
+            var output = document.querySelector('.Pro_Mass_outputs');
+            var text = textarea.value;
+    
+            // Check if text area is not empty
+            if (text.trim() === "") {
+                output.textContent = "Please enter a sequence.";
+                return;
+            }
+    
+            // Call the Rust function using Tauri's invoke
+            window.__TAURI__.invoke('protein_mass', { sequence: text }).then((result) => {
+                output.textContent = result;
+                terminal.style.display = 'block';
+            }).catch((error) => {
+                console.error("Invoke error:", error);
+                output.textContent = "Error calculating protein mass.";
+            });
+        });
+    });
+    
+    document.addEventListener("DOMContentLoaded",function(){
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#Pro_Mass_seq-text");
+        const terminal = document.querySelector('.terminal');
+    
         reset.addEventListener('click',function(){
             textarea.value = '';
             terminal.style.display='none';

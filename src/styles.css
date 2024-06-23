@@ -70,6 +70,13 @@ nav a {
   padding-top: 20px;
   overflow: hidden;
 }
+.right_sidebar h3 {
+  margin-left: 10px;
+  color: var(--inputbackgroundcolor);
+  cursor: pointer;
+  font-size: 20px;
+  overflow: hidden;
+}
 
 .DNA-data {
   width: 100%;
@@ -88,13 +95,6 @@ nav a {
   background-color: var(--maincolor);
 }
 
-.right_sidebar h3 {
-  margin-left: 10px;
-  color: var(--inputbackgroundcolor);
-  cursor: pointer;
-  font-size: 20px;
-  overflow: hidden;
-}
 
 .RNA-data {
   width: 100%;
@@ -113,6 +113,25 @@ nav a {
 .RNA-data a:hover {
   background-color: var(--maincolor);
   }
+
+.Protein-data {
+  width: 100%;
+  display: none;
+}
+  
+.Protein-data a {
+  display: flex;
+  padding-left: 20px;
+  padding-top: 8px;
+  width: 93%;
+  flex-wrap: wrap;
+  font-size: 20px;
+}
+  
+.Protein-data a:hover {
+  background-color: var(--maincolor);
+  }
+
 .sidr {
   position: absolute;
   width: 2px;
@@ -508,6 +527,25 @@ nav a {
   cursor: pointer;
 }
 #Kmer_comp_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}
+
+
+
+/*Protein Mass Calculation page */
+
+#Pro_Mass_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#Pro_Mass_seq-text{
   border-radius: 15px;
   padding: 10px;
   flex-shrink: 1;

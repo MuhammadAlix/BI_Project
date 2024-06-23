@@ -217,9 +217,45 @@ fn parse_fasta(fasta_string: &str) -> String {
     fasta_string.lines().skip(1).collect()
 }
 
+
+
+// Protein Mass Calculating
+#[tauri::command]
+fn protein_mass(sequence: &str) -> String {
+    let mut dict = HashMap::new();
+    dict.insert('A', 71.03711);dict.insert('C', 103.00919);
+    dict.insert('D', 115.02694);dict.insert('E', 129.04259);
+    dict.insert('F', 147.06841);dict.insert('G', 57.02146);
+    dict.insert('H', 137.05891);dict.insert('I', 113.08406);
+    dict.insert('K', 128.09496);dict.insert('L', 113.08406);
+    dict.insert('M', 131.04049);dict.insert('N', 114.04293);
+    dict.insert('P', 97.05276);dict.insert('Q', 128.05858);
+    dict.insert('R', 156.10111);dict.insert('S', 87.03203);
+    dict.insert('T', 101.04768);dict.insert('V', 99.06841);
+    dict.insert('W', 186.07931);dict.insert('Y', 163.06333);
+
+    // Variable to accumulate the sum
+    let mut e = 0.0;
+
+    // Iterate over the sequence and accumulate the values
+    for c in sequence.chars() {
+        if let Some(&value) = dict.get(&c) {
+            e += value;
+        } else {
+            println!("Character {} not found in dictionary", c);
+        }
+    }
+
+    // Return the result as a string
+    format!("Your Weight of protein is {}",e)
+}
+
+    
+
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta,protein_mass])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
