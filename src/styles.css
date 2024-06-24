@@ -289,6 +289,9 @@ nav a {
   /* border: 10px solid var(--inputbackgroundcolor); */
   
 }
+.hljs{
+  overflow-y: scroll;
+}
 
 #pythonCode{
   display: none;
