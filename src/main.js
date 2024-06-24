@@ -596,3 +596,44 @@ document.addEventListener("DOMContentLoaded", function() {
             codedata.style.display='none';
         });
     });
+
+
+//  Translation page JS
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Handle submission for translation
+    const submit = document.querySelector("#Translation_submitbtn");
+    const terminal = document.querySelector('.terminal');
+    
+    submit.addEventListener('click', function() {
+        var textarea = document.querySelector('#Translation_seq-text');
+        var output = document.querySelector('.Translation_outputs');
+        var text = textarea.value.trim();
+        if (text) {
+            window.__TAURI__.invoke('translation', { sequence: text })
+                .then((result) => {
+                    output.textContent = result;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    output.textContent = "An error occurred during translation.";
+                });
+        } else {
+            output.textContent = "Please enter a sequence.";
+        }
+        terminal.style.display = 'block';
+    });
+
+    // Handle reset
+    const reset = document.querySelector("#resetbtn");
+    const codedata = document.querySelector(".codearea");
+
+    reset.addEventListener('click', function() {
+        var textarea = document.querySelector('#Translation_seq-text');
+        var output = document.querySelector('.Translation_outputs');
+        textarea.value = '';
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
