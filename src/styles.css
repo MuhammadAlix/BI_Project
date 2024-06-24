@@ -268,12 +268,15 @@ nav a {
 .codeArea{
   display: flex;
   justify-content: center;
+  flex-shrink: 1;
   /* flex-grow: 1; */
   /* width: 100%; */
   /* background-color: var(--inputbackgroundcolor); */
   /* background: transparent; */
 }
 .codeText{
+  display: flex;
+  flex-shrink: 1;
   width: 95%;
   padding: 5px;
   border: none;
@@ -284,14 +287,19 @@ nav a {
   background-color: var(--inputbackgroundcolor);
   margin: 0;
   padding: 0;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* border: 1px solid var(--inputbackgroundcolor); */
   /* border-radius: 10px; */
   /* border: 10px solid var(--inputbackgroundcolor); */
   
 }
-.hljs{
+/* .hljs{
   overflow-y: scroll;
-}
+} */
+
 
 #pythonCode{
   display: none;

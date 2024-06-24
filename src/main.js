@@ -326,11 +326,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const submit = document.querySelector("#GC_submitbtn");
     const terminal = document.querySelector('.terminal');
+    // const code = document.querySelectorAll('.code');
 
         submit.addEventListener('click', function() {
             var textarea = document.querySelector('#GC_seq-text');
             var output = document.querySelector('.GC_outputs');
             var text = textarea.value;
+            // code.style.height= "300px";
             invoke('gc', {seq: text}).then((result) => output.textContent=result);
             terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
         });
