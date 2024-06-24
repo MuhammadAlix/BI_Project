@@ -70,28 +70,93 @@
                 <div class="codeArea">
                     <pre id="rustCode" class="codeText">
                         <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+fn generate_kmers_recursive(k: usize, current: String, alphabet: &[char], kmers: &mut Vec<String>) {
+    if current.len() == k {
+        kmers.push(current);
+        return;
+    }
+    for &c in alphabet {
+        let mut next = current.clone();
+        next.push(c);
+        generate_kmers_recursive(k, next, alphabet, kmers);
+    }
 }
+
+fn generate_kmers(k: usize) -> Vec<String> {
+    let alphabet = ['A', 'C', 'G', 'T'];
+    let mut kmers = Vec::new();
+    generate_kmers_recursive(k, String::new(), &alphabet, &mut kmers);
+    kmers.sort();
+    kmers
+}
+
+#[tauri::command]
+fn kmer_composition(sequence: &str, k: usize) -> Vec<usize> {
+    let kmers = generate_kmers(k);
+    let mut kmer_count: HashMap<String, usize> = HashMap::new();
+    
+    for kmer in &kmers {
+        kmer_count.insert(kmer.clone(), 0);
+    }
+    
+    for i in 0..=(sequence.len() - k) {
+        let kmer: String = sequence[i..i + k].to_string();
+        if let Some(count) = kmer_count.get_mut(&kmer) {
+            *count += 1;
+        }
+    }
+    
+    kmers.iter().map(|kmer| *kmer_count.get(kmer).unwrap_or(&0)).collect()
+}
+#[tauri::command]
+fn parse_fasta(fasta_string: &str) -> String {
+    fasta_string.lines().skip(1).collect()
+}
+fn main() {
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![kmer_composition,parse_fasta])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    }
 </code>
                     </pre>
                     <pre id="pythonCode" class="codeText">
                         <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
+from itertools import product
+
+def generate_kmers(k):
+    alphabet = 'ACGT'
+    return [''.join(p) for p in product(alphabet, repeat=k)]
+
+def kmer_composition(sequence, k):
+    kmers = generate_kmers(k)
+    kmer_count = {kmer: 0 for kmer in kmers}
+    
+    for i in range(len(sequence) - k + 1):
+        kmer = sequence[i:i+k]
+        kmer_count[kmer] += 1
+        
+    return [kmer_count[kmer] for kmer in kmers]
+
+def parse_fasta(fasta_string):
+    return ''.join(fasta_string.split('\n')[1:])
+
+# Sample dataset
+fasta_string = """>Rosalind_6431
+CTTCGAAAGTTTGGGCCGAGTCTTACAGTCGGTCTTGAAGCAAAGTAACGAACTCCACGG
+CCCTGACTACCGAACCAGTTGTGAGTACTCAACTGGGTGAGAGTGCAGTCCCTATTGAGT
+TTCCGAGACTCACCGGGATTTTCGATCCAGCCTCAGTCCAGTCTTGTGGCCAACTCACCA
+AATGACGTTGGAATATCCCTGTCTAGCTCACGCAGTACTTAGTAAGAGGTCGCTGCAGCG
+GGGCAAGGAGATCGGAAAATGTGCTCTATATGCGACTAAAGCTCCTAACTTACACGTAGA
+CTTGCCCGTGTTAAAAACTCGGCTCACATGCTGTCTGCGGCTGGCTGTATACAGTATCTA
+CCTAATACCCTTCAGTTCGCCGCACAAAAGCTGGGAGTTACCGCGGAAATCACAG"""
+sequence = parse_fasta(fasta_string)
+# Calculate the 4-mer composition
+k = 4
+composition = kmer_composition(sequence, k)
+# Print the result as space-separated values
+print(' '.join(map(str, composition)))
+
 </code>
 </pre>
 
