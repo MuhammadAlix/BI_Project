@@ -222,6 +222,7 @@ fn parse_fasta(fasta_string: &str) -> String {
 // Protein Mass Calculating
 #[tauri::command]
 fn protein_mass(sequence: &str) -> String {
+    let sequence = sequence.to_uppercase();
     let mut dict = HashMap::new();
     dict.insert('A', 71.03711);dict.insert('C', 103.00919);
     dict.insert('D', 115.02694);dict.insert('E', 129.04259);
