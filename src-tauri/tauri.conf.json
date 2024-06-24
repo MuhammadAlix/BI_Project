@@ -29,7 +29,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "BI Project",
+      "identifier": "BI_Project",
       "windows": {
         "allowDowngrades": true,
         "certificateThumbprint": null,
