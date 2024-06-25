@@ -123,17 +123,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const Protein = document.querySelector('.Protein');
     const Protein_data = document.querySelector('.Protein-data');
 
-    // Check if elements are successfully selected
-    if (!DNA || !DNA_data || !RNA || !RNA_data || !Protein || !Protein_data) {
-        console.error("One or more elements not found.");
-        console.log("DNA:", DNA);
-        console.log("DNA_data:", DNA_data);
-        console.log("RNA:", RNA);
-        console.log("RNA_data:", RNA_data);
-        console.log("Protein:", Protein);
-        console.log("Protein_data:", Protein_data);
-        return;
-    }
 
     // Add event listeners
     Protein.addEventListener('click', function() {
@@ -152,6 +141,64 @@ document.addEventListener("DOMContentLoaded", function() {
         RNA_data.style.display = "block";
         DNA_data.style.display = "none";    
         Protein_data.style.display = "none";
+    });
+});
+document.addEventListener("DOMContentLoaded", function() {
+    // Select elements
+    const PDNA = document.querySelector('.DNA');
+    const PDNA_data = document.querySelector('.PDNA-data');
+    const PRNA = document.querySelector('.RNA');
+    const PRNA_data = document.querySelector('.PRNA-data');
+    const PProtein = document.querySelector('.Protein');
+    const PProtein_data = document.querySelector('.PProtein-data');
+
+
+    // Add event listeners
+    PProtein.addEventListener('click', function() {
+        PProtein_data.style.display = "block";
+        PDNA_data.style.display = "none";    
+        PRNA_data.style.display = "none";  
+    });
+
+    PDNA.addEventListener('click', function() {
+        PDNA_data.style.display = "block";
+        PRNA_data.style.display = "none";
+        PProtein_data.style.display = "none";
+    });
+
+    PRNA.addEventListener('click', function() {
+        PRNA_data.style.display = "block";
+        PDNA_data.style.display = "none";    
+        PProtein_data.style.display = "none";
+    });
+});
+document.addEventListener("DOMContentLoaded", function() {
+    // Select elements
+    const RDNA = document.querySelector('.DNA');
+    const RDNA_data = document.querySelector('.RDNA-data');
+    const RRNA = document.querySelector('.RNA');
+    const RRNA_data = document.querySelector('.RRNA-data');
+    const RProtein = document.querySelector('.Protein');
+    const RProtein_data = document.querySelector('.RProtein-data');
+
+
+    // Add event listeners
+    RProtein.addEventListener('click', function() {
+        RProtein_data.style.display = "block";
+        RDNA_data.style.display = "none";    
+        RRNA_data.style.display = "none";  
+    });
+
+    RDNA.addEventListener('click', function() {
+        RDNA_data.style.display = "block";
+        RRNA_data.style.display = "none";
+        RProtein_data.style.display = "none";
+    });
+
+    RRNA.addEventListener('click', function() {
+        RRNA_data.style.display = "block";
+        RDNA_data.style.display = "none";    
+        RProtein_data.style.display = "none";
     });
 });
 
@@ -639,3 +686,4 @@ document.addEventListener("DOMContentLoaded", function() {
         codedata.style.display = 'none';
     });
 });
+

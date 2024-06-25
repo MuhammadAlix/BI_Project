@@ -131,7 +131,117 @@ nav a {
 .Protein-data a:hover {
   background-color: var(--maincolor);
   }
-
+  
+  .RDNA-data {
+    width: 100%;
+    display: none;
+  }
+  
+  .RDNA-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+  
+  .RDNA-data a:hover {
+    background-color: var(--maincolor);
+  }
+  
+  
+  .RRNA-data {
+    width: 100%;
+     
+  }
+  
+  .RRNA-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+  
+  .RRNA-data a:hover {
+    background-color: var(--maincolor);
+    }
+  
+  .RProtein-data {
+    width: 100%;
+    display: none;
+  }
+    
+  .RProtein-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+    
+  .RProtein-data a:hover {
+    background-color: var(--maincolor);
+    }
+   
+  .PDNA-data {
+    width: 100%;
+    display: none;
+  }
+  
+  .PDNA-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+  
+  .PDNA-data a:hover {
+    background-color: var(--maincolor);
+  }
+  
+  
+  .PRNA-data {
+    width: 100%;
+    display: none;
+  }
+  
+  .PRNA-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+  
+  .PRNA-data a:hover {
+    background-color: var(--maincolor);
+    }
+  
+  .PProtein-data {
+    width: 100%;
+    /* display: none; */
+  }
+    
+  .PProtein-data a {
+    display: flex;
+    padding-left: 20px;
+    padding-top: 8px;
+    width: 93%;
+    flex-wrap: wrap;
+    font-size: 20px;
+  }
+    
+  .PProtein-data a:hover {
+    background-color: var(--maincolor);
+    }
+  
 .sidr {
   position: absolute;
   width: 2px;
