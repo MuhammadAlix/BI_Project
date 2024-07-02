@@ -208,8 +208,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const submit = document.querySelector("#submitbtn");
     const terminal = document.querySelector('.terminal');
+    const description = document.querySelector('.description');
+    const description_text = document.querySelector('.description_text');
 
-
+        description.addEventListener('click',function(){
+            description_text.style.display = description_text.style.display === 'none' ? 'block' : 'none';
+        });
         submit.addEventListener('click', function() {
             var textarea = document.querySelector('#seq-text');
             var output = document.querySelector('.outputss');
@@ -305,32 +309,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // NC Page JS
 
-document.addEventListener("DOMContentLoaded", function(){
 
+document.addEventListener("DOMContentLoaded", function() {
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
     const submit = document.querySelector("#NC_submitbtn");
     const terminal = document.querySelector('.terminal');
+    const fileInput = document.querySelector("#NC_fasta_file_input");
+    const textarea = document.querySelector("#NC_seq-text");
+    const output = document.querySelector('.NC_outputs');
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#NC_seq-text');
-            var output = document.querySelector('.NC_outputs');
-            var text = textarea.value;
-            invoke('n_count', {seq: text}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
 
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#NC_seq-text");
-        const terminal = document.querySelector('.terminal');
-    
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const fileContent = textarea.value;
+
+        if (!fileContent.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('n_count', { seq: fileContent }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
         });
     });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+        output.textContent = '';
+    });
+});
+
 
 
 
@@ -339,31 +368,56 @@ document.addEventListener("DOMContentLoaded", function(){
 // Complementary Page JS
 
 document.addEventListener("DOMContentLoaded", function(){
-
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
+    const textarea = document.querySelector("#Comp_seq-text");
     const submit = document.querySelector("#Comp_submitbtn");
     const terminal = document.querySelector('.terminal');
+    const fileInput = document.querySelector("#Comp_fasta_file_input");
+    const output = document.querySelector('.Comp_outputs');
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#Comp_seq-text');
-            var output = document.querySelector('.Comp_outputs');
-            var text = textarea.value;
-            invoke('complementary', {seq: text}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const fileContent = textarea.value;
+
+        if (!fileContent.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('complementary', { seq: fileContent }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
         });
-    })
-
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#Comp_seq-text");
-        const terminal = document.querySelector('.terminal');
-
+    });
         reset.addEventListener('click',function(){
             textarea.value = '';
             terminal.style.display='none';
             codedata.style.display='none';
         });
     });
+
+
+
 
 
 
@@ -684,6 +738,47 @@ document.addEventListener("DOMContentLoaded", function() {
         output.textContent = '';
         terminal.style.display = 'none';
         codedata.style.display = 'none';
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.querySelector("#fasta_file_input");
+    const textarea = document.querySelector("#seq-text");
+    const output = document.querySelector('.outputss');
+    const submit = document.querySelector('#submitbtn');
+
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const fileContent = textarea.value;
+
+        if (!fileContent.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('read_fasta', { content: fileContent }).then((result) => {
+            const sequences = Object.values(result).join('\n');
+            output.textContent = sequences;
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
+        });
     });
 });
 

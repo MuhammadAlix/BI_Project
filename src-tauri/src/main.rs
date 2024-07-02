@@ -3,36 +3,85 @@
 use std::collections::HashMap;
 
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
-}
 
-#[tauri::command]
-fn complementary(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let mut complementary_sequence = String::new();
-
-    for base in newseq.chars() {
-        let complementary_base = match base {
-            'A' => 'T',
-            'T' => 'A',
-            'C' => 'G',
-            'G' => 'C',
-            'U' => 'T', 
-            _ => base,
-        };
-        complementary_sequence.push(complementary_base);
+fn read_fasta(content: &str) -> Result<HashMap<String, String>, String> {
+    let mut sequences = HashMap::new();
+    let mut sequence_id: Option<String> = None;
+    let mut sequence_data = Vec::new();
+    
+    for line in content.lines() {
+        let line = line.trim();
+        
+        if line.starts_with('>') {
+            if let Some(id) = sequence_id.take() {
+                sequences.insert(id, sequence_data.join(""));
+            }
+            sequence_id = Some(line[1..].to_string());  // Remove the '>' character
+            sequence_data.clear();
+        } else {
+            sequence_data.push(line.to_string());
+        }
     }
     
-    format!("The complementary strand is {}",complementary_sequence)
+    if let Some(id) = sequence_id {
+        sequences.insert(id, sequence_data.join(""));
+    }
+    
+    Ok(sequences)
 }
+
+
+#[tauri::command]
+fn n_count(seq: &str) -> Result<String, String> {
+    let newseq = seq.to_uppercase();
+    match read_fasta(&newseq) {
+        Ok(parsed_sequences) => {
+            let mut total_count_a = 0;
+            let mut total_count_t = 0;
+            let mut total_count_g = 0;
+            let mut total_count_c = 0;
+
+            for sequence in parsed_sequences.values() {
+                total_count_a += sequence.matches('A').count();
+                total_count_t += sequence.matches('T').count();
+                total_count_g += sequence.matches('G').count();
+                total_count_c += sequence.matches('C').count();
+            }
+
+            Ok(format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", total_count_a, total_count_t, total_count_g, total_count_c))
+        },
+        Err(e) => Err(e),
+    }
+}
+
+#[tauri::command]
+fn complementary(seq: String) -> Result<String, String> {
+    let newseq = seq.to_uppercase();
+    match read_fasta(&newseq) {
+        Ok(parsed_sequences) => {
+            let mut result = String::new();
+            for (id, sequence) in parsed_sequences {
+                let mut complementary_sequence = String::new();
+                for base in sequence.chars() {
+                    let complementary_base = match base {
+                        'A' => 'T',
+                        'T' => 'A',
+                        'C' => 'G',
+                        'G' => 'C',
+                        'U' => 'T', 
+                        _ => base,
+                    };
+                    complementary_sequence.push(complementary_base);
+                }
+                result.push_str(&format!(">{}\n{}\n", id, complementary_sequence));
+            }
+            Ok(result)
+        },
+        Err(e) => Err(e),
+    }
+}
+
 
 #[tauri::command]
 fn gc(seq: &str) -> String {
@@ -251,7 +300,7 @@ fn protein_mass(sequence: &str) -> String {
     }
 
     // Return the result as a string
-    format!("Your Weight of protein is {}",e)
+    format!("Your Weight of protein is {} Da",e)
 }
 
 
@@ -303,7 +352,7 @@ fn translation(sequence: &str) -> String {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta,protein_mass,translation])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta,protein_mass,translation,read_fasta])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
     }

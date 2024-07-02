@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
-    
 </head>
 <body>
     <nav>
@@ -22,17 +21,17 @@
         <div class="right_sidebar">
             <div class="DNA-data">
                 <h3 class="DNA"><b>DNA Section</b></h3>
-                <a href="Nucleotide_Counting.html" >DNA Nucleotide Counting</a>
+                <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
                 <a href="Complementary.html">Complementary Strand</a>
                 <a href="GC.html">GC Content</a>
                 <a href="DNA_motif.html">DNA Motif finding</a>
-                <a href="Nucleotide_Counting.html" >Point Mutations</a>
+                <a href="Point_mutations.html">Point Mutations</a>
                 <a href="Profile_census.html">Profile and Census</a>
                 <a href="Kmer_composition.html">Kmer Composition</a>
-            </div>                      
+            </div>
             <div class="RNA-data">
                 <h3 class="RNA"><b>RNA Section</b></h3>
-                <a href="Transcription.html" >Transcription</a>
+                <a href="Transcription.html">Transcription</a>
                 <a href="RNucleotide_Counting.html">Nucleotide Counting</a>
                 <a href="RGC.html">GC Content</a>
             </div>
@@ -41,40 +40,44 @@
                 <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
                 <a href="Translation.html">Translation</a>
             </div>
-            <div class="sidr"></div>  
+            <div class="sidr"></div>
         </div>
         <div class="main">
             <div class="maindata">
                 <div class="input_area">
+                    <div class="topic">
+                        <h1>Home Page</h1>
+                        <button class="description">Description</button>
+                        <p class="description_text">This is my home page</p>
+                    </div>
                     <div class="entry">
-                    <div class="heading">
-                        Enter Your Sequence
-                    </div>
-                    <div class="bottom">
-                        <div class="text-area">
-                            <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
+                        <div class="heading">Enter Your Sequence</div>
+                        <div class="bottom">
+                            <div class="text-area">
+                                <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
+                                <input type="file" accept=".fasta,.fa" id="fasta_file_input" placeholder="enter your fasta file">
+                            </div>
+                            <div class="btns">
+                                <input type="submit" class="DNATool1" id="submitbtn">
+                                <button class="btn" id="resetbtn">Reset</button>
+                                <button class="btn" id="codebtn">Code</button>
+                            </div>
                         </div>
-                        <div class="btns">
-                            <input type="submit" class="DNATool1" id="submitbtn">
-                            <button class="btn" id="resetbtn">Reset</button>
-                            <button class="btn" id="codebtn">Code</button>
-                        </div>
                     </div>
-                </div>
                 </div>
                 <div class="codearea">
                     <div class="coder"></div>
                     <div class="codedata">
-                         <div class="top">
-                    <p class="heading">Code</p>
-                    <div class="langs">
-                        <button class="codeSelect" id="rust">Rust</button>
-                        <button class="codeSelect" id="python">Python</button>
-                    </div>
-                </div>
-                <div class="codeArea">
-                    <pre id="rustCode" class="codeText">
-                        <code class="language-rust">
+                        <div class="top">
+                            <p class="heading">Code</p>
+                            <div class="langs">
+                                <button class="codeSelect" id="rust">Rust</button>
+                                <button class="codeSelect" id="python">Python</button>
+                            </div>
+                        </div>
+                        <div class="codeArea">
+                            <pre id="rustCode" class="codeText">
+                                <code class="language-rust">
 fn n_count(seq: &str) -> String {
     let newseq = seq.to_uppercase();
     let count_a = newseq.matches('A').count();
@@ -84,9 +87,9 @@ fn n_count(seq: &str) -> String {
     format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
 }
 </code>
-                    </pre>
-                    <pre id="pythonCode" class="codeText">
-                        <code class="language-python">
+                            </pre>
+                            <pre id="pythonCode" class="codeText">
+                                <code class="language-python">
 DNA=input("Enter your DNA Sequence: ")
 DNA=DNA.upper()
 Adenine= DNA.count("A")
@@ -98,32 +101,27 @@ print("G: ", Guanine)
 print("C: ", Cytosine)
 print("T: ", Thyamine)
 </code>
-</pre>
-
-                </div>
-                <div class="bottom2">
-                    <button class="btn" id="copybtn">Copy</button>
-                </div>
+                            </pre>
+                        </div>
+                        <div class="bottom2">
+                            <button class="btn" id="copybtn">Copy</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="terminal">
                 <div class="terminalr"></div>
                 <div class="terminal_data">
-                
                     <p class="outputss"></p>
                 </div>
             </div>
         </div>
     </div>
-</body>
     <!-- Importing Highlight js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    
-    <!-- and it's easy to individually load additional languages -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
     <script src="main.js"></script>
-
     <script>hljs.highlightAll();</script>
+</body>
 </html>

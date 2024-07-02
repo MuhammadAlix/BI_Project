@@ -274,7 +274,7 @@ nav a {
 /* Input field */
 
 .input_area {
-  display: flex;
+  /* display: flex; */
   flex-grow: 1;
   /* width: 70%; */
 }
@@ -283,9 +283,32 @@ nav a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 80%;
   background-color: var(--maincolor);
   padding-left: 40px;
+}
+.topic{
+  width: 100%;
+  height: 20%;
+}
+.topic h1{
+  color: var(--inputbackgroundcolor);
+  margin-left: 2px;
+}
+.topic button{
+  background-color: var(--sidebarbackgroundcolor);
+  width: 100px;
+  border-radius: 10px;
+  border: 1px solid var(--navbackgroundcolor);
+  margin-left: 2px;
+  cursor: pointer;
+  color: var(--terminalbackgroundcolor);
+}
+.topic p{
+  color: var(--inputbackgroundcolor);
+  margin-left: 2px;
+  margin-top: 3px;
+  display: none;
 }
 .heading{
   color: #fff;
@@ -299,10 +322,14 @@ nav a {
   flex-shrink: 1;
   
 }
+.text-area{
+  display: grid;
+}
 #seq-text{
   border-radius: 15px;
   padding: 10px;
   flex-shrink: 1;
+  resize: none;
 }
 .btns{
   padding: 10px;
@@ -439,6 +466,7 @@ nav a {
   width: 100%;
   position: relative;
   display: none;
+  overflow: auto; /* Add this line to allow scrolling */
 }
 
 .terminal .terminalr {
@@ -450,17 +478,19 @@ nav a {
   background-color: #aaa;
 }
 
-.terminal_data{
+.terminal_data {
   width: 100%;
   height: 100%;
-  
+  overflow-wrap: break-word; /* Add this line to break long words */
 }
-.terminal_data p{
+
+.terminal_data p {
   width: 95%;
   margin-top: 30px;
   margin-left: 10px;
   color: white;
-
+  white-space: pre-wrap; /* Add this line to preserve whitespace and wrap text */
+  word-wrap: break-word; /* Add this line to break long words */
 }
 
 
@@ -488,8 +518,6 @@ nav a {
   padding: 10px;
   flex-shrink: 1;
 }
-
-
 
 /* Complementary Page */
 

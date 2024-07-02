@@ -26,7 +26,7 @@
                 <a href="Complementary.html" >Complementary Strand</a>
                 <a href="GC.html" >GC Content</a>
                 <a href="DNA_motif.html" >DNA Motif finding</a>
-                <a href="Nucleotide_Counting.html"  >Point Mutations</a>
+                <a href="Point_mutations.html"  >Point Mutations</a>
                 <a href="Profile_census.html" >Profile and Census</a>
                 <a href="Kmer_composition.html" >Kmer Composition</a>
             </div>                      
@@ -46,13 +46,19 @@
         <div class="main">
             <div class="maindata">
                 <div class="input_area">
+                    <div class="topic">
+                        <h1>DNA Nucleotide Counting</h1>
+                        <button class="description">Description</button>
+                        <p class="description_text">This tool will give you the no of times each neucleotide is repeated. Like in ACTCG, A is present 1 time, C is two times etc.</p>
+                    </div>
                     <div class="entry">
                     <div class="heading">
                         Enter Your Sequence
                     </div>
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="NC_seq-text" cols="30" rows="7"></textarea>
+                            <textarea name="sequence" id="NC_seq-text" cols="30" rows="7" placeholder="Choose fasta file first then submit"></textarea>
+                            <input type="file" accept=".fasta,.fa" id="NC_fasta_file_input" >
                         </div>
                         <div class="btns">
                             <input type="submit" class="DNATool1" id="NC_submitbtn">
