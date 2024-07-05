@@ -423,34 +423,57 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // GC Page JS
 
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function() {
     const submit = document.querySelector("#GC_submitbtn");
     const terminal = document.querySelector('.terminal');
-    // const code = document.querySelectorAll('.code');
+    const textarea = document.querySelector('#GC_seq-text');
+    const output = document.querySelector('.GC_outputs');
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
+    const fileInput = document.querySelector("#GC_fasta_file_input");
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#GC_seq-text');
-            var output = document.querySelector('.GC_outputs');
-            var text = textarea.value;
-            // code.style.height= "300px";
-            invoke('gc', {seq: text}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
 
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#GC_seq-text");
-        const terminal = document.querySelector('.terminal');
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
 
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        var text = textarea.value;
+
+        if (!text.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('gc', { content: text }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
         });
     });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
+
+
 
 
 
@@ -458,288 +481,439 @@ document.addEventListener("DOMContentLoaded", function(){
 
 // Transcription Page JS
 
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function() {
     const submit = document.querySelector("#Transcription_submitbtn");
     const terminal = document.querySelector('.terminal');
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
+    const textarea = document.querySelector("#Transcription_seq-text");
+    const fileInput = document.querySelector("#Transcription_fasta_file_input");
+    const output = document.querySelector('.Transcription_outputs');
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#Transcription_seq-text');
-            var output = document.querySelector('.Transcription_outputs');
-            var text = textarea.value;
-            invoke('transcription', {seq: text}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
 
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#Transcription_seq-text");
-        const terminal = document.querySelector('.terminal');
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
 
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function(event) {
+        event.preventDefault();
+        const text = textarea.value;
+
+        console.log("Submit button clicked");
+        console.log("Text area content:", text);
+
+        if (!text.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('transcription', { seq: text }).then((result) => {
+            console.log("Invoke result:", result);
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            console.log("Invoke error:", error);
+            output.textContent = `Error: ${error}`;
         });
     });
 
-
-
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        fileInput.value = '';  
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
 
 
 // DNA Motif Page JS
 
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function() {
     const submit = document.querySelector("#Motif_submitbtn");
     const terminal = document.querySelector('.terminal');
+    const textarea = document.querySelector('#Motif_seq-text');
+    const motif = document.querySelector('#Motif');
+    const output = document.querySelector('.Motif_outputs');
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
+    const fileInput = document.querySelector("#Motif_fasta_file_input");
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#Motif_seq-text');
-            var motif = document.querySelector('#Motif');
-            var output = document.querySelector('.Motif_outputs');
-            var text = textarea.value;
-            var motif_value=motif.value
-            invoke('dna_motif', {seq: text,motif: motif_value}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
 
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#Motif_seq-text");
-        const terminal = document.querySelector('.terminal');
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
 
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const text = textarea.value;
+        const motif_value = motif.value;
+
+        if (!text.trim()) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        if (!motif_value.trim()) {
+            output.textContent = 'Please enter a motif';
+            return;
+        }
+
+        invoke('dna_motif', { content: text, motif: motif_value }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
         });
     });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        motif.value = '';
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
+
 
 
 
 // Point Mutations JS
-
-document.addEventListener("DOMContentLoaded", function(){
-
+document.addEventListener("DOMContentLoaded", function() {
     const submit = document.querySelector("#Point_submitbtn");
     const terminal = document.querySelector('.terminal');
+    const codedata = document.querySelector(".codearea");
+    const reset = document.querySelector("#resetbtn");
+    const textarea = document.querySelector('#Point_seq-text');
+    const output = document.querySelector('.Point_outputs');
+    const fileInput = document.querySelector("#Point_fasta_file_input");
 
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#Point1_seq-text');
-            var textarea2 = document.querySelector('#Point2_seq-text');
-            var output = document.querySelector('.Point_outputs');
-            var Point1_value = textarea.value;
-            var Point2_value=textarea2.value;
-            invoke('point_mutation', {seq1: Point1_value,seq2: Point2_value}).then((result) => output.textContent=result);
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
 
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        var textarea = document.querySelector('#Point1_seq-text');
-        var textarea2 = document.querySelector('#Point2_seq-text');
-        const terminal = document.querySelector('.terminal');
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
 
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            textarea2.value='';
-            terminal.style.display='none';
-            codedata.style.display='none';
-        });
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
     });
-
-
-
-
-
-// Profile Census Page JS
-
-document.addEventListener("DOMContentLoaded", function(){
-
-    const submit = document.querySelector("#ProCen_submitbtn");
-    const terminal = document.querySelector('.terminal');
-
-        submit.addEventListener('click', function() {
-            
-            var textarea = document.querySelector('#ProCen_seq-text');
-            var outputProfile = document.querySelector('.ProCen_profile');
-            var outputConsensus = document.querySelector('.ProCen_consensus');
-
-            var text = textarea.value;
-            var sequences = text.split("\n").filter(seq => seq.trim().length > 0);
-
-            invoke('calculate_profile_matrix_and_consensus', { sequences: sequences }).then((result) => {
-                // result will be an object containing the profile matrix and the consensus sequence
-                const profileMatrix = result[0];
-                const consensusSequence = result[1];
-                
-
-                // Format the profile matrix for display
-                let profileText = "Profile Matrix:\n";
-                for (const [nucleotide, counts] of Object.entries(profileMatrix)) {
-                    profileText += `${nucleotide}: ${counts.join(' ')}\n`;
-                }
-
-                // Display the profile matrix and consensus sequence
-                outputProfile.textContent = profileText;
-                outputConsensus.textContent = `Consensus Sequence: ${consensusSequence}`;
-            }).catch((error) => {
-                console.error('Error:', error);
-                outputProfile.textContent = 'An error occurred while calculating the profile matrix and consensus sequence.';
-                outputConsensus.textContent = '';
-            });
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        });
-    })
-
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#ProCen_seq-text");
-        const terminal = document.querySelector('.terminal');
-
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
-        });
-    });
-
-
-
-// Kmer Composition JS
-
-document.addEventListener("DOMContentLoaded", function() {
-    const submit = document.querySelector("#Kmer_comp_submitbtn");
-    const terminal = document.querySelector('.terminal');
 
     submit.addEventListener('click', function() {
-        var textarea = document.querySelector('#Kmer_comp_seq-text');
-        var output = document.querySelector('.Kmer_comp_outputs');
-        var text = textarea.value.trim();
+        const text = textarea.value.trim();
 
         if (!text) {
             output.textContent = 'There is no input';
             return;
         }
 
-        invoke('parse_fasta', { fastaString: text }).then(sequence => {
-            return invoke('kmer_composition', { sequence, k: 4 });
-        }).then(composition => {
-            output.textContent = composition.join(' ');
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        }).catch(error => {
-            console.error('Error:', error);
-            output.textContent = 'An error occurred';
+        
+        invoke('point_mutation', { content: text }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
+            terminal.style.display = 'block';
         });
     });
-});
-
-
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        var textarea = document.querySelector('#Kmer_comp_seq-text');
-        const terminal = document.querySelector('.terminal');
-
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
-        });
-    });
-
-
-
-
-    // Protein_Mass_Calculation Page JS
-
-    document.addEventListener("DOMContentLoaded", function() {
-        const submit = document.querySelector("#Pro_Mass_submitbtn");
-        const terminal = document.querySelector('.terminal');
-    
-        submit.addEventListener('click', function() {
-            var textarea = document.querySelector('#Pro_Mass_seq-text');
-            var output = document.querySelector('.Pro_Mass_outputs');
-            var text = textarea.value;
-    
-            // Check if text area is not empty
-            if (text.trim() === "") {
-                output.textContent = "Please enter a sequence.";
-                return;
-            }
-    
-            // Call the Rust function using Tauri's invoke
-            window.__TAURI__.invoke('protein_mass', { sequence: text }).then((result) => {
-                output.textContent = result;
-                terminal.style.display = 'block';
-            }).catch((error) => {
-                console.error("Invoke error:", error);
-                output.textContent = "Error calculating protein mass.";
-            });
-        });
-    });
-    
-    document.addEventListener("DOMContentLoaded",function(){
-        const codedata = document.querySelector(".codearea");
-        const reset = document.querySelector("#resetbtn");
-        const textarea = document.querySelector("#Pro_Mass_seq-text");
-        const terminal = document.querySelector('.terminal');
-    
-        reset.addEventListener('click',function(){
-            textarea.value = '';
-            terminal.style.display='none';
-            codedata.style.display='none';
-        });
-    });
-
-
-//  Translation page JS
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Handle submission for translation
-    const submit = document.querySelector("#Translation_submitbtn");
-    const terminal = document.querySelector('.terminal');
-    
-    submit.addEventListener('click', function() {
-        var textarea = document.querySelector('#Translation_seq-text');
-        var output = document.querySelector('.Translation_outputs');
-        var text = textarea.value.trim();
-        if (text) {
-            window.__TAURI__.invoke('translation', { sequence: text })
-                .then((result) => {
-                    output.textContent = result;
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    output.textContent = "An error occurred during translation.";
-                });
-        } else {
-            output.textContent = "Please enter a sequence.";
-        }
-        terminal.style.display = 'block';
-    });
-
-    // Handle reset
-    const reset = document.querySelector("#resetbtn");
-    const codedata = document.querySelector(".codearea");
 
     reset.addEventListener('click', function() {
-        var textarea = document.querySelector('#Translation_seq-text');
-        var output = document.querySelector('.Translation_outputs');
         textarea.value = '';
         output.textContent = '';
         terminal.style.display = 'none';
         codedata.style.display = 'none';
     });
 });
+
+
+
+
+
+
+
+
+
+// Profile Census Page JS
+document.addEventListener("DOMContentLoaded", function() {
+    const submit = document.querySelector("#ProCen_submitbtn");
+    const reset = document.querySelector("#resetbtn");
+    const textarea = document.querySelector("#ProCen_seq-text");
+    const outputProfile = document.querySelector('.ProCen_profile');
+    const outputConsensus = document.querySelector('.ProCen_consensus');
+    const terminal = document.querySelector('.terminal');
+    const codedata = document.querySelector(".codearea");
+    const fileInput = document.querySelector("#ProCen_fasta_file_input");
+
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const text = textarea.value.trim();
+
+        if (!text) {
+            outputProfile.textContent = 'There is no input';
+            outputConsensus.textContent = '';
+            return;
+        }
+
+        invoke('calculate_profile_matrix_and_consensus', { content: text }).then((result) => {
+            const [profileMatrix, consensusSequence] = result;
+            
+            let profileText = "Profile Matrix:\n";
+            for (const [nucleotide, counts] of Object.entries(profileMatrix)) {
+                profileText += `${nucleotide}: ${counts.join(' ')}\n`;
+            }
+
+            outputProfile.textContent = profileText;
+            outputConsensus.textContent = `Consensus Sequence: ${consensusSequence}`;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            console.error('Error:', error);
+            outputProfile.textContent = 'An error occurred while calculating the profile matrix and consensus sequence.';
+            outputConsensus.textContent = '';
+            terminal.style.display = 'block';
+        });
+    });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        outputProfile.textContent = '';
+        outputConsensus.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
+
+    
+
+
+
+// Kmer Composition JS
+document.addEventListener("DOMContentLoaded", function() {
+    const submit = document.querySelector("#Kmer_comp_submitbtn");
+    const reset = document.querySelector("#resetbtn");
+    const textarea = document.querySelector("#Kmer_comp_seq-text");
+    const outputProfile = document.querySelector('.Kmer_comp_outputs');
+    const terminal = document.querySelector('.terminal');
+    const codedata = document.querySelector(".codearea");
+    const fileInput = document.querySelector("#Kmer_fasta_file_input");
+
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const text = textarea.value.trim();
+
+        if (!text) {
+            outputProfile.textContent = 'There is no input';
+            return;
+        }
+
+        const k = parseInt(document.querySelector("#kmer_length").value);
+
+        if (isNaN(k) || k <= 0) {
+            outputProfile.textContent = 'Please enter a valid k-mer length';
+            return;
+        }
+
+        invoke('kmer_composition', { content: text, k: k }).then((result) => {
+            const profileText = result.join(" ");
+            outputProfile.textContent = profileText;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            console.error('Error:', error);
+            outputProfile.textContent = 'An error occurred while calculating the k-mer composition.';
+            terminal.style.display = 'block';
+        });
+    });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        outputProfile.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
+
+
+
+
+
+    // Protein_Mass_Calculation Page JS
+    document.addEventListener("DOMContentLoaded", function() {
+        const submit = document.querySelector("#Pro_Mass_submitbtn");
+        const terminal = document.querySelector('.terminal');
+        const codedata = document.querySelector(".codearea");
+        const reset = document.querySelector("#resetbtn");
+        const textarea = document.querySelector("#Pro_Mass_seq-text");
+        const output = document.querySelector('.Pro_Mass_outputs');
+        const fileInput = document.querySelector("#Pro_fasta_file_input");
+    
+        fileInput.addEventListener("change", async function() {
+            const file = fileInput.files[0];
+    
+            if (!file) {
+                textarea.value = 'Please select a file.';
+                return;
+            }
+        
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const fileContent = new TextDecoder().decode(arrayBuffer);
+                textarea.value = fileContent;
+            } catch (error) {
+                textarea.value = `Error: ${error}`;
+            }
+        });
+        
+        submit.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            
+            const text = textarea.value.trim();
+        
+            if (!text) {
+                output.textContent = 'There is no input';
+                return;
+            }
+    
+            invoke('protein_mass', { sequence: text }).then((result) => {
+                output.textContent = result;
+                terminal.style.display = 'block';
+            }).catch((error) => {
+                output.textContent = `Error: ${error}`;
+            });
+        });
+    
+        reset.addEventListener('click', function() {
+            textarea.value = '';
+            output.textContent = '';
+            terminal.style.display = 'none';
+            codedata.style.display = 'none';
+        });
+    });
+    
+//  Translation page JS
+
+document.addEventListener("DOMContentLoaded", function() {
+    const submit = document.querySelector("#Translation_submitbtn");
+    const terminal = document.querySelector('.terminal');
+    const reset = document.querySelector("#resetbtn");
+    const codedata = document.querySelector(".codearea");
+    const textarea = document.querySelector('#Translation_seq-text');
+    const output = document.querySelector('.Translation_outputs');
+    const fileInput = document.querySelector("#Translation_fasta_file_input");
+
+    fileInput.addEventListener("change", async function() {
+        const file = fileInput.files[0];
+
+        if (!file) {
+            textarea.value = 'Please select a file.';
+            return;
+        }
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const fileContent = new TextDecoder().decode(arrayBuffer);
+            textarea.value = fileContent;
+        } catch (error) {
+            textarea.value = `Error: ${error}`;
+        }
+    });
+
+    submit.addEventListener('click', function() {
+        const text = textarea.value.trim();
+
+        if (!text) {
+            output.textContent = 'There is no input';
+            return;
+        }
+
+        invoke('translation', { content: text }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
+        }).catch((error) => {
+            output.textContent = `Error: ${error}`;
+        });
+    });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -781,4 +955,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+
 

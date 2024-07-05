@@ -611,12 +611,7 @@ nav a {
   color: #fff;
   cursor: pointer;
 }
-#Point1_seq-text{
-  border-radius: 15px;
-  padding: 10px;
-  flex-shrink: 1;
-}
-#Point2_seq-text{
+#Point_seq-text{
   border-radius: 15px;
   padding: 10px;
   flex-shrink: 1;
@@ -626,14 +621,7 @@ nav a {
   width: 300px;
   font-size: 20px;
 }
-.Point_btns{
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 150px;
-  padding-left: 100px;
-}
+
 
 
 /* Profile and Census page */

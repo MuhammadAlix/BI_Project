@@ -4,7 +4,6 @@ use std::collections::HashMap;
 
 
 #[tauri::command]
-
 fn read_fasta(content: &str) -> Result<HashMap<String, String>, String> {
     let mut sequences = HashMap::new();
     let mut sequence_id: Option<String> = None;
@@ -34,25 +33,32 @@ fn read_fasta(content: &str) -> Result<HashMap<String, String>, String> {
 
 #[tauri::command]
 fn n_count(seq: &str) -> Result<String, String> {
-    let newseq = seq.to_uppercase();
-    match read_fasta(&newseq) {
-        Ok(parsed_sequences) => {
-            let mut total_count_a = 0;
-            let mut total_count_t = 0;
-            let mut total_count_g = 0;
-            let mut total_count_c = 0;
+    let parsed_sequences = read_fasta(seq)?;
+    
+    let mut results = String::new();
 
-            for sequence in parsed_sequences.values() {
-                total_count_a += sequence.matches('A').count();
-                total_count_t += sequence.matches('T').count();
-                total_count_g += sequence.matches('G').count();
-                total_count_c += sequence.matches('C').count();
+    for (id, seq) in parsed_sequences {
+        let seq = seq.to_uppercase();
+        let mut count_a = 0;
+        let mut count_t = 0;
+        let mut count_c = 0;
+        let mut count_g = 0;
+
+        for base in seq.chars() {
+            match base {
+                'A' => count_a += 1,
+                'T' => count_t += 1,
+                'C' => count_c += 1,
+                'G' => count_g += 1,
+                _ => {}
             }
+        }
 
-            Ok(format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", total_count_a, total_count_t, total_count_g, total_count_c))
-        },
-        Err(e) => Err(e),
+        results.push_str(&format!("Sequence {}:\n A={},\n T={},\n C={},\n G={}\n", id, count_a, count_t, count_c, count_g));
     }
+
+    Ok(results)
+
 }
 
 #[tauri::command]
@@ -84,95 +90,140 @@ fn complementary(seq: String) -> Result<String, String> {
 
 
 #[tauri::command]
-fn gc(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    let count_u = newseq.matches('U').count();
-    let total = count_a + count_c + count_g + count_t+count_u;
+fn gc(content: String) -> Result<String, String> {
+    let parsed_sequences = read_fasta(&content)?;
+    let mut result = String::new();
 
-    let gc = if total != 0 {
-        ((count_c + count_g) as f64 / total as f64) * 100.0
-    } else {
-        0.0 
-    };
+    for (id, sequence) in parsed_sequences {
+        let sequence = sequence.to_uppercase();
+        let count_a = sequence.matches('A').count();
+        let count_t = sequence.matches('T').count();
+        let count_g = sequence.matches('G').count();
+        let count_c = sequence.matches('C').count();
+        let count_u = sequence.matches('U').count();
+        let total = count_a + count_c + count_g + count_t + count_u;
 
-    format!("GC content in the sequence is {:.2}%", gc)
-}
-
-#[tauri::command]
-fn transcription(seq: &str) ->String {
-    let newseq= seq.to_uppercase();
-    let mut transcription_sequence = String::new();
-
-    for base in newseq.chars() {
-        let transcription_base = match base {
-            'A' => 'A',
-            'T' => 'U',
-            'C' => 'C',
-            'G' => 'G',
-            
-            _ => base,
+        let gc = if total != 0 {
+            ((count_c + count_g) as f64 / total as f64) * 100.0
+        } else {
+            0.0 
         };
-        transcription_sequence.push(transcription_base);
+
+        result.push_str(&format!("GC content in sequence {} is {:.2}%\n", id, gc));
     }
-    
-    transcription_sequence    
+
+    Ok(result)
 }
 
 #[tauri::command]
-fn dna_motif(seq: &str, motif: &str) -> String {
-    let sequence = seq.to_uppercase();
+fn transcription(seq: &str) -> Result<String, String> {
+    let parsed_sequences = read_fasta(&seq)?; 
+    let mut result = String::new();
+
+    for (id, sequence) in parsed_sequences {
+        let sequence = sequence.to_uppercase();
+        let mut transcribed_sequence = String::new();
+
+        for base in sequence.chars() {
+            let transcription_base = match base {
+                'A' => 'A',
+                'T' => 'U',
+                'C' => 'C',
+                'G' => 'G',
+                _ => base,
+            };
+
+            transcribed_sequence.push(transcription_base);
+        }
+
+        result.push_str(&format!(">{}\n{}\n", id, transcribed_sequence));
+    }
+
+    Ok(result)
+}
+
+
+#[tauri::command]
+fn dna_motif(content: String, motif: String) -> Result<String, String> {
+    let parsed_sequences = read_fasta(&content)?;
     let motif = motif.to_uppercase();
-    let seq_len = sequence.len();
-    let motif_len = motif.len();
-    let mut locations = Vec::new();
+    let mut result = String::new();
+    
+    for (id, sequence) in parsed_sequences {
+        let sequence = sequence.to_uppercase();
+        let seq_len = sequence.len();
+        let motif_len = motif.len();
+        let mut locations = Vec::new();
 
-    if motif_len > seq_len {
-        return "Motif is longer than the sequence".to_string();
-    }
-    for i in 0..=(seq_len - motif_len) {
-        if &sequence[i..i + motif_len] == motif {
-            locations.push(i + 1); 
+        if motif_len > seq_len {
+            result.push_str(&format!("Motif is longer than the sequence in {}\n", id));
+            continue;
         }
+
+        for i in 0..=(seq_len - motif_len) {
+            if &sequence[i..i + motif_len] == motif {
+                locations.push(i + 1); 
+            }
+        }
+
+        result.push_str(&format!("In sequence {}:\n Motif is at positions {:?}\n", id, locations));
     }
-    format!("The given motif is at positions {:?}", locations)
+
+    Ok(result)
 }
 
 #[tauri::command]
-fn point_mutation(seq1: &str, seq2: &str) -> String {
-    let first_seq = seq1.to_uppercase();
-    let second_seq = seq2.to_uppercase();
-    let mut c = 0;
+fn point_mutation(content: &str) -> Result<String, String> {
+    let sequences = read_fasta(content)?;
 
-    let first_chars: Vec<char> = first_seq.chars().collect();
-    let second_chars: Vec<char> = second_seq.chars().collect();
-
-    let first_len = first_chars.len();
-    let second_len = second_chars.len();
-
-    if first_len != second_len {
-        return "Strings are of different lengths".to_string();
+    if sequences.len() < 2 {
+        return Err("Expected at least two sequences in input".to_string());
     }
 
-    for i in 0..first_len {
-        if first_chars[i] != second_chars[i] {
-            c += 1;
+    let mut sequence_ids: Vec<&String> = sequences.keys().collect();
+    sequence_ids.sort(); // Sorting to ensure consistent output order
+
+    let mut results = String::new();
+
+    for i in 0..sequence_ids.len() {
+        for j in (i + 1)..sequence_ids.len() {
+            let seq1 = &sequences[sequence_ids[i]];
+            let seq2 = &sequences[sequence_ids[j]];
+
+            let mut mutations = 0;
+            let seq1_chars: Vec<char> = seq1.chars().collect();
+            let seq2_chars: Vec<char> = seq2.chars().collect();
+
+            if seq1_chars.len() != seq2_chars.len() {
+                return Err(format!("Sequence {} and Sequence {} have different lengths", sequence_ids[i], sequence_ids[j]));
+            }
+
+            for k in 0..seq1_chars.len() {
+                if seq1_chars[k] != seq2_chars[k] {
+                    mutations += 1;
+                }
+            }
+
+            results.push_str(&format!("No of point mutations between {} and\n {} is:     {}\n", sequence_ids[i], sequence_ids[j], mutations));
         }
     }
 
-    format!("There are {} mutations in your sequences", c)
+    Ok(results)
 }
 
 
+
+
+
 #[tauri::command]
-fn calculate_profile_matrix_and_consensus(sequences: Vec<String>) -> Result<(HashMap<char, Vec<String>>, String), String> {
-    if sequences.is_empty() {
+fn calculate_profile_matrix_and_consensus(content: &str) -> Result<(HashMap<char, Vec<String>>, String), String> {
+    let sequences_map = read_fasta(content)?;
+    
+    if sequences_map.is_empty() {
         return Err("Input list of sequences is empty".to_string());
     }
 
+    let sequences: Vec<String> = sequences_map.values().cloned().collect();
     let sequence_length = sequences[0].len();
     let num_sequences = sequences.len() as f64;
 
@@ -225,89 +276,98 @@ fn calculate_profile_matrix_and_consensus(sequences: Vec<String>) -> Result<(Has
 
 
 // Kmer Composition Rust
-
-fn generate_kmers_recursive(k: usize, current: String, alphabet: &[char], kmers: &mut Vec<String>) {
-    if current.len() == k {
-        kmers.push(current);
-        return;
-    }
-    for &c in alphabet {
-        let mut next = current.clone();
-        next.push(c);
-        generate_kmers_recursive(k, next, alphabet, kmers);
-    }
-}
-
 fn generate_kmers(k: usize) -> Vec<String> {
     let alphabet = ['A', 'C', 'G', 'T'];
     let mut kmers = Vec::new();
-    generate_kmers_recursive(k, String::new(), &alphabet, &mut kmers);
+    
+    for i in 0..(1 << (2 * k)) {
+        let mut kmer = String::new();
+        let mut val = i;
+        for _ in 0..k {
+            kmer.push(alphabet[val & 0b11]);
+            val >>= 2;
+        }
+        kmers.push(kmer.chars().rev().collect::<String>());
+    }
+    
     kmers.sort();
     kmers
 }
 
+// Function to calculate the k-mer composition of a sequence
 #[tauri::command]
-fn kmer_composition(sequence: &str, k: usize) -> Vec<usize> {
+fn kmer_composition(content: &str, k: usize) -> Result<Vec<usize>, String> {
+    let sequences = read_fasta(content)?;
+    
+    // Combine all sequences into a single string
+    let combined_sequence: String = sequences.values().cloned().collect();
+    
     let kmers = generate_kmers(k);
     let mut kmer_count: HashMap<String, usize> = HashMap::new();
-    
+
     for kmer in &kmers {
         kmer_count.insert(kmer.clone(), 0);
     }
-    
-    for i in 0..=(sequence.len() - k) {
-        let kmer: String = sequence[i..i + k].to_string();
+
+    for i in 0..=(combined_sequence.len() - k) {
+        let kmer: String = combined_sequence[i..i + k].to_string();
         if let Some(count) = kmer_count.get_mut(&kmer) {
             *count += 1;
         }
     }
-    
-    kmers.iter().map(|kmer| *kmer_count.get(kmer).unwrap_or(&0)).collect()
-}
-#[tauri::command]
-fn parse_fasta(fasta_string: &str) -> String {
-    fasta_string.lines().skip(1).collect()
-}
 
+    Ok(kmer_count.values().cloned().collect())
+}
 
 
 // Protein Mass Calculating
 #[tauri::command]
-fn protein_mass(sequence: &str) -> String {
-    let sequence = sequence.to_uppercase();
+
+fn protein_mass(sequence: &str) -> Result<String, String> {
+    let parsed_sequences = read_fasta(sequence)?;
+    
     let mut dict = HashMap::new();
-    dict.insert('A', 71.03711);dict.insert('C', 103.00919);
-    dict.insert('D', 115.02694);dict.insert('E', 129.04259);
-    dict.insert('F', 147.06841);dict.insert('G', 57.02146);
-    dict.insert('H', 137.05891);dict.insert('I', 113.08406);
-    dict.insert('K', 128.09496);dict.insert('L', 113.08406);
-    dict.insert('M', 131.04049);dict.insert('N', 114.04293);
-    dict.insert('P', 97.05276);dict.insert('Q', 128.05858);
-    dict.insert('R', 156.10111);dict.insert('S', 87.03203);
-    dict.insert('T', 101.04768);dict.insert('V', 99.06841);
-    dict.insert('W', 186.07931);dict.insert('Y', 163.06333);
+    dict.insert('A', 71.03711); dict.insert('C', 103.00919);
+    dict.insert('D', 115.02694); dict.insert('E', 129.04259);
+    dict.insert('F', 147.06841); dict.insert('G', 57.02146);
+    dict.insert('H', 137.05891); dict.insert('I', 113.08406);
+    dict.insert('K', 128.09496); dict.insert('L', 113.08406);
+    dict.insert('M', 131.04049); dict.insert('N', 114.04293);
+    dict.insert('P', 97.05276); dict.insert('Q', 128.05858);
+    dict.insert('R', 156.10111); dict.insert('S', 87.03203);
+    dict.insert('T', 101.04768); dict.insert('V', 99.06841);
+    dict.insert('W', 186.07931); dict.insert('Y', 163.06333);
 
-    // Variable to accumulate the sum
-    let mut e = 0.0;
+    let mut results = String::new();
 
-    // Iterate over the sequence and accumulate the values
-    for c in sequence.chars() {
-        if let Some(&value) = dict.get(&c) {
-            e += value;
-        } else {
-            println!("Character {} not found in dictionary", c);
+    for (id, seq) in parsed_sequences {
+        let seq = seq.to_uppercase();
+        let mut protein_mass = 0.0;
+
+        for c in seq.chars() {
+            if let Some(&mass) = dict.get(&c) {
+                protein_mass += mass;
+            } else {
+                return Err(format!("Unknown amino acid '{}' in sequence {}", c, id));
+            }
         }
+
+        results.push_str(&format!("Protein mass of Sequence {}: is {:.2} Da\n", id, protein_mass));
     }
 
-    // Return the result as a string
-    format!("Your Weight of protein is {} Da",e)
+    Ok(results)
 }
 
 
 
 
 #[tauri::command]
-fn translation(sequence: &str) -> String {
+
+fn translation(content: &str) -> Result<String, String> {
+    // Parse the FASTA content into sequences
+    let parsed_sequences = read_fasta(content)?;
+
+    // RNA codon table
     let mut rna_codon_table = HashMap::new();
     rna_codon_table.insert("AUG", 'M'); rna_codon_table.insert("AAA", 'K'); rna_codon_table.insert("AAC", 'N');
     rna_codon_table.insert("AAG", 'K'); rna_codon_table.insert("AAU", 'N'); rna_codon_table.insert("ACA", 'T');
@@ -332,27 +392,35 @@ fn translation(sequence: &str) -> String {
     rna_codon_table.insert("UUA", 'L'); rna_codon_table.insert("UUC", 'F'); rna_codon_table.insert("UUG", 'L');
     rna_codon_table.insert("UUU", 'F');
 
-    let mut protein = String::new();
-    let codon_len = 3;
+    // Translate each sequence
+    let mut translation_result = String::new();
 
-    for i in (0..sequence.len()).step_by(codon_len) {
-        if i + codon_len <= sequence.len() {
-            let codon = &sequence[i..i + codon_len];
-            if let Some(&amino_acid) = rna_codon_table.get(codon) {
-                protein.push(amino_acid);
-            } else {
-                eprintln!("Warning: Codon {} not found in table", codon);
+    for (id, sequence) in parsed_sequences {
+        let sequence = sequence.to_uppercase();
+        let mut protein = String::new();
+        let codon_len = 3;
+
+        for i in (0..sequence.len()).step_by(codon_len) {
+            if i + codon_len <= sequence.len() {
+                let codon = &sequence[i..i + codon_len];
+                if let Some(&amino_acid) = rna_codon_table.get(codon) {
+                    protein.push(amino_acid);
+                } else {
+                    eprintln!("Warning: Codon {} not found in table", codon);
+                }
             }
         }
+
+        translation_result.push_str(&format!(">{}\n{}\n", id, protein));
     }
 
-    format!("Translated protein sequence: {}", protein)
-} 
+    Ok(translation_result)
+}
 
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,parse_fasta,protein_mass,translation,read_fasta])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,protein_mass,translation,read_fasta])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
     }
