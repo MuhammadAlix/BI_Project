@@ -13,19 +13,27 @@ This template should help get you started developing with Tauri in vanilla HTML,
 
 - Clone your fork.
 
-```git clone https://github.com/Your_usrename/BI_Project.git```
+```
+git clone https://github.com/Your_usrename/BI_Project.git
+```
 
 - Then run.
 
-```cd BI_Project```
+```
+cd BI_Project
+```
 
 - Then install node modules.
 
-```npm install```
+```
+npm install
+```
 
 - Get perview with live reloading.
 
-```npm run tauri dev```
+```
+npm run tauri dev
+```
 
 - Make your changes and them.
 
