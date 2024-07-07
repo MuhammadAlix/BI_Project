@@ -3,9 +3,9 @@ const invoke = window.__TAURI__.invoke;
 // Preload animation:
 var preload = document.querySelector('.preload')
 window.addEventListener("load",function(){
-  setInterval(()=> {
-    preload.style.display="none";
-  } , 3000)
+    setInterval(()=> {
+        preload.style.display="none";
+    } , 3000)    
 })
 
 
