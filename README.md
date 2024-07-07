@@ -11,7 +11,12 @@ This template should help get you started developing with Tauri in vanilla HTML,
 
 - Fork this repository.
 
+![Alt text](/src/assets/Fork.png?raw=true "Optional Title")
+
 - Clone your fork.
+
+![Alt text](/src/assets/Clone.png?raw=true "Optional Title")
+
 
 ```
 git clone https://github.com/Your_usrename/BI_Project.git
