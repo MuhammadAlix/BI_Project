@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
 </head>
 <body>
     <div class="preload">
@@ -50,85 +51,35 @@
             <div class="sidr"></div>
         </div>
         <div class="main">
-            <div class="maindata">
-                <div class="input_area">
-                    <div class="topic">
-                        <h1>Home Page</h1>
-                        <button class="description">Description</button>
-                        <p class="description_text">This is our home page</p>
-                    </div>
-                    <div class="entry">
-                        <div class="heading">Enter Your Sequence</div>
-                        <div class="bottom">
-                            <div class="text-area">
-                                <textarea name="sequence" id="seq-text" cols="30" rows="7"></textarea>
-                                <input type="file" accept=".fasta,.fa" id="fasta_file_input" placeholder="enter your fasta file">
-                            </div>
-                            <div class="btns">
-                                <input type="submit" class="DNATool1" id="submitbtn">
-                                <button class="btn" id="resetbtn">Reset</button>
-                                <button class="btn" id="codebtn">Code</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="codearea">
-                    <div class="coder"></div>
-                    <div class="codedata">
-                        <div class="top">
-                            <p class="heading">Code</p>
-                            <div class="langs">
-                                <button class="codeSelect" id="rust">Rust</button>
-                                <button class="codeSelect" id="python">Python</button>
-                            </div>
-                        </div>
-                        <div class="codeArea">
-                            <pre id="rustCode" class="codeText">
-                                <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
-}
-</code>
-                            </pre>
-                            <pre id="pythonCode" class="codeText">
-                                <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
-</code>
-                            </pre>
-                        </div>
-                        <div class="bottom2">
-                            <button class="btn" id="copybtn">Copy</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="topic">
+                <h1>Home Page</h1>
+                <button class="description">Description</button>
+                <p class="description_text">This is home page</p>
             </div>
-            <div class="terminal">
-                <div class="terminalr"></div>
-                <div class="terminal_data">
-                    <p class="outputss"></p>
-                </div>
+            <div class="entry">
+                <div class="heading">Select any tool to get started.</div>
             </div>
         </div>
-    </div>
+
+    </div>   
     <!-- Importing Highlight js -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script>
+        // Preload animation:
+        var preload = document.querySelector('.preload')
+        window.addEventListener("load",function(){
+        setInterval(()=> {
+            preload.style.display="none";
+        } , 3000)    
+        })
+        document.addEventListener("DOMContentLoaded", function(){
+        const description = document.querySelector('.description');
+        const description_text = document.querySelector('.description_text');
+
+            description.addEventListener('click',function(){
+                description_text.style.display = description_text.style.display === 'none' ? 'block' : 'none';
+            });
+        })
+    </script>
     <script src="main.js"></script>
-    <script>hljs.highlightAll();</script>
 </body>
 </html>
