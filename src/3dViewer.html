@@ -15,7 +15,55 @@
     <title>Document</title>
 </head>
 <body>
-    <div id=viewer></div>
+    <nav>
+        <a href="index2.html">Home</a>
+        <a href="#help">Help</a>
+        <a href="contact.html">Contact</a>
+        <a href="about.html">About Us</a>
+    </nav>
+    <div class="container">
+        <div class="left_sidebar">
+            <button class="section-btn DNA"><b>DNA</b></button>
+            <button class="section-btn RNA"><b>RNA</b></button>
+            <button class="section-btn Protein"><b>PRO</b></button>
+        </div>
+        <div class="right_sidebar">
+            <div class="DNA-data">
+                <h3 class="DNA"><b>DNA Section</b></h3>
+                <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
+                <a href="Complementary.html">Complementary Strand</a>
+                <a href="GC.html">GC Content</a>
+                <a href="DNA_motif.html">DNA Motif finding</a>
+                <a href="Point_mutations.html">Point Mutations</a>
+                <a href="Profile_census.html">Profile and Census</a>
+                <a href="Kmer_composition.html">Kmer Composition</a>
+            </div>
+            <div class="RNA-data">
+                <h3 class="RNA"><b>RNA Section</b></h3>
+                <a href="Transcription.html">Transcription</a>
+                <a href="RNucleotide_Counting.html">Nucleotide Counting</a>
+                <a href="RGC.html">GC Content</a>
+            </div>
+            <div class="Protein-data">
+                <h3>Protein Section</h3>
+                <a href="Secondary_structure.html">Secondary Structure Prediction</a>
+                <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
+                <a href="Translation.html">Translation</a>
+                <a href="3dViewer.html">Protein 3D Structure</a>
+            </div>
+            <div class="sidr"></div>
+        </div>
+        <div class="main">
+            <div class="topic">
+                <h1>3D Viewer</h1>
+                <button class="description">Description</button>
+                <p class="description_text">This tool accepts a PDB file and shows 3D structure of the respective protein molecule.</p>
+            </div>
+            <div id=viewer></div>
+            
+        </div>
+
+    </div> 
 </body>
 </html>
 <script type='text/javascript' src='package/bio-pv.min.js'></script>
