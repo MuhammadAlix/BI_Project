@@ -6,14 +6,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-
 </head>
 <body>
-    <div class="preload">
-        <div class="anim">
-          <dotlottie-player src="Anim.json" background="transparent" speed="1" style="width: 100vw; height: 100vh;" loop autoplay></dotlottie-player>
-        </div>
-    </div>
     <nav>
         <a href="index2.html">Home</a>
         <a href="#help">Help</a>
@@ -45,7 +39,6 @@
             </div>
             <div class="section Protein-data">
                 <h3>Protein Section</h3>
-                <a href="Secondary_structure.html">Secondary Structure Prediction</a>
                 <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
                 <a href="Translation.html">Translation</a>
             </div>
@@ -65,13 +58,6 @@
     </div>   
     <!-- Importing Highlight js -->
     <script>
-        // Preload animation:
-        var preload = document.querySelector('.preload')
-        window.addEventListener("load",function(){
-        setInterval(()=> {
-            preload.style.display="none";
-        } , 3000)    
-        })
         document.addEventListener("DOMContentLoaded", function(){
         const description = document.querySelector('.description');
         const description_text = document.querySelector('.description_text');

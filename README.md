@@ -5,3 +5,45 @@ This template should help get you started developing with Tauri in vanilla HTML,
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+
+
+## How to Contribute?
+
+- Fork this repository.
+
+![Alt text](/src/assets/Fork.png?raw=true "Optional Title")
+
+- Clone your fork.
+
+![Alt text](/src/assets/Clone.png?raw=true "Optional Title")
+
+
+```
+git clone https://github.com/Your_usrename/BI_Project.git
+```
+
+- Then run.
+
+```
+cd BI_Project
+```
+
+- Then install node modules.
+
+```
+npm install
+```
+
+- Get perview with live reloading.
+
+```
+npm run tauri dev
+```
+
+- Make your changes and them.
+
+- Push changes with a clear commit message.
+
+- Make a pull request.
+
+- Moderators will review your changes and pull them to the main branch.
