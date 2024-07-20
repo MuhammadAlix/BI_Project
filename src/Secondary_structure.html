@@ -20,25 +20,25 @@
             <button class="Protein"><b>PRO</b></button>
         </div>
         <div class="right_sidebar">
-            <div class="DNA-data">
+            <div class="PDNA-data">
                 <h3 class="DNA"><b>DNA Section</b></h3>
                 <a href="Nucleotide_Counting.html" >DNA Nucleotide Counting</a>
                 <a href="Complementary.html">Complementary Strand</a>
-                <a href="#">GC Content</a>
+                <a href="GC.html">GC Content</a>
                 <a href="DNA_motif.html">DNA Motif finding</a>
                 <a href="Point_mutations.html" >Point Mutations</a>
                 <a href="Profile_census.html">Profile and Census</a>
                 <a href="Kmer_composition.html">Kmer Composition</a>
             </div>                      
-            <div class="RNA-data">
+            <div class="PRNA-data">
                 <h3 class="RNA"><b>RNA Section</b></h3>
                 <a href="Transcription.html" >Transcription</a>
-                <a href="Nucleotide_Counting.html">Nucleotide Counting</a>
+                <a href="RNucleotide_Counting.html">Nucleotide Counting</a>
                 <a href="RGC.html">GC Content</a>
             </div>
-            <div class="Protein-data">
+            <div class="PProtein-data">
                 <h3>Protein Section</h3>
-                <a href="Secondary_structure.html">Secondary Structure Prediction</a>
+                <a href="#">Secondary Structure Prediction</a>
                 <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
                 <a href="Translation.html">Translation</a>
             </div>
@@ -48,9 +48,9 @@
             <div class="maindata">
                 <div class="input_area">
                     <div class="topic">
-                        <h1>GC Content</h1>
+                        <h1>Secondary Structure Prediction</h1>
                         <button class="description">Description</button>
-                        <p class="description_text">This tool will compute the GC content in your given sequence.</p>
+                        <p class="description_text">You have to give a amino acid sequence and the tool will predict you a secondary structure of that particular amino acid sequence.</p>
                     </div>
                     <div class="entry">
                     <div class="heading">
@@ -58,11 +58,11 @@
                     </div>
                     <div class="bottom">
                         <div class="text-area">
-                            <textarea name="sequence" id="GC_seq-text" cols="30" rows="7" placeholder="Choose fasta file first then submit"></textarea>
-                            <input type="file" accept=".fasta,.fa" id="GC_fasta_file_input" >
+                            <textarea name="sequence" id="SS_seq-text" cols="30" rows="7" placeholder="Choose fasta file first then submit"></textarea>
+                            <input type="file" accept=".fasta,.fa" id="SS_fasta_file_input" >
                         </div>
                         <div class="btns">
-                            <input type="submit" class="DNATool1" id="GC_submitbtn">
+                            <input type="submit" class="DNATool1" id="SS_submitbtn">
                             <button class="btn" id="resetbtn">Reset</button>
                             <button class="btn" id="codebtn">Code</button>
                         </div>
@@ -82,28 +82,32 @@
                 <div class="codeArea">
                     <pre id="rustCode" class="codeText">
                         <code class="language-rust">
-fn n_count(seq: &str) -> String {
-    let newseq = seq.to_uppercase();
-    let count_a = newseq.matches('A').count();
-    let count_t = newseq.matches('T').count();
-    let count_g = newseq.matches('G').count();
-    let count_c = newseq.matches('C').count();
-    format!("Count of A is {}! Count of T is {}! Count of G is {}! Count of C is {}!", count_a, count_t, count_g, count_c)
+fn dna_motif(seq: &str, motif: &str) -> String {
+    let sequence = seq;
+    let motif = motif;
+    let seq_len = sequence.len();
+    let motif_len = motif.len();
+    let mut locations = Vec::new();
+
+    if motif_len > seq_len {
+        return "Motif is longer than the sequence".to_string();
+    }
+    for i in 0..=(seq_len - motif_len) {
+        if &sequence[i..i + motif_len] == motif {
+            locations.push(i + 1); 
+        }
+    }
+    format!("The given motif is at positions {:?}", locations)
 }
 </code>
                     </pre>
                     <pre id="pythonCode" class="codeText">
                         <code class="language-python">
-DNA=input("Enter your DNA Sequence: ")
-DNA=DNA.upper()
-Adenine= DNA.count("A")
-Guanine= DNA.count("G")
-Cytosine =DNA.count("C")
-Thyamine = DNA.count("T")
-print("A: " ,Adenine)
-print("G: ", Guanine)
-print("C: ", Cytosine)
-print("T: ", Thyamine)
+a="atcgggtccgt"
+k='gt'
+for i in range(len(a)-len(k)+1):
+    if(a[i:i+len(k)]==k):
+        print(i+1)
 </code>
 </pre>
 
@@ -118,7 +122,7 @@ print("T: ", Thyamine)
                 <div class="terminalr"></div>
                 <div class="terminal_data">
                 
-                    <p class="GC_outputs"></p>
+                    <p class="SS_outputs"></p>
                 </div>
             </div>
         </div>

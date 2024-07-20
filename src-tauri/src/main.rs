@@ -362,7 +362,6 @@ fn protein_mass(sequence: &str) -> Result<String, String> {
 
 
 #[tauri::command]
-
 fn translation(content: &str) -> Result<String, String> {
     // Parse the FASTA content into sequences
     let parsed_sequences = read_fasta(content)?;
@@ -404,7 +403,12 @@ fn translation(content: &str) -> Result<String, String> {
             if i + codon_len <= sequence.len() {
                 let codon = &sequence[i..i + codon_len];
                 if let Some(&amino_acid) = rna_codon_table.get(codon) {
-                    protein.push(amino_acid);
+                    if amino_acid == '*' {
+                        protein.push_str("Transcription stopped due to stop codon");
+                        break;
+                    } else {
+                        protein.push(amino_acid);
+                    }
                 } else {
                     eprintln!("Warning: Codon {} not found in table", codon);
                 }
@@ -417,10 +421,57 @@ fn translation(content: &str) -> Result<String, String> {
     Ok(translation_result)
 }
 
+#[tauri::command]
+fn predict_secondary_structure(sequence: &str) -> Result<String, String> {
+    let mut propensities: HashMap<char, HashMap<&str, f32>> = HashMap::new();
+    propensities.insert('A', [("H", 1.45), ("E", 0.83), ("C", 0.97)].iter().cloned().collect());
+    propensities.insert('C', [("H", 0.77), ("E", 1.19), ("C", 1.30)].iter().cloned().collect());
+    propensities.insert('D', [("H", 0.98), ("E", 0.54), ("C", 1.46)].iter().cloned().collect());
+    propensities.insert('E', [("H", 1.53), ("E", 0.37), ("C", 1.44)].iter().cloned().collect());
+    propensities.insert('F', [("H", 1.12), ("E", 1.28), ("C", 0.69)].iter().cloned().collect());
+    propensities.insert('G', [("H", 0.53), ("E", 0.81), ("C", 1.56)].iter().cloned().collect());
+    propensities.insert('H', [("H", 1.24), ("E", 0.71), ("C", 1.12)].iter().cloned().collect());
+    propensities.insert('I', [("H", 1.00), ("E", 1.60), ("C", 0.97)].iter().cloned().collect());
+    propensities.insert('K', [("H", 1.07), ("E", 0.74), ("C", 1.01)].iter().cloned().collect());
+    propensities.insert('L', [("H", 1.34), ("E", 1.22), ("C", 0.84)].iter().cloned().collect());
+    propensities.insert('M', [("H", 1.20), ("E", 1.67), ("C", 0.95)].iter().cloned().collect());
+    propensities.insert('N', [("H", 0.73), ("E", 0.65), ("C", 1.39)].iter().cloned().collect());
+    propensities.insert('P', [("H", 0.59), ("E", 0.62), ("C", 1.52)].iter().cloned().collect());
+    propensities.insert('Q', [("H", 1.17), ("E", 1.10), ("C", 0.96)].iter().cloned().collect());
+    propensities.insert('R', [("H", 0.79), ("E", 0.90), ("C", 1.24)].iter().cloned().collect());
+    propensities.insert('S', [("H", 0.79), ("E", 0.72), ("C", 1.34)].iter().cloned().collect());
+    propensities.insert('T', [("H", 0.82), ("E", 1.20), ("C", 1.09)].iter().cloned().collect());
+    propensities.insert('V', [("H", 1.14), ("E", 1.65), ("C", 0.83)].iter().cloned().collect());
+    propensities.insert('W', [("H", 1.14), ("E", 1.19), ("C", 0.99)].iter().cloned().collect());
+    propensities.insert('Y', [("H", 0.61), ("E", 1.29), ("C", 1.47)].iter().cloned().collect());
+
+    let parsed_sequences = read_fasta(sequence)?;
+
+    let mut ss_results = String::new();
+
+    for (id, sequence) in parsed_sequences {
+        let sequence = sequence.to_uppercase();
+        let mut structure = String::new();
+
+        for aa in sequence.chars() {
+            if let Some(prop) = propensities.get(&aa) {
+                let max_prop = prop.iter().max_by(|a, b| a.1.partial_cmp(b.1).unwrap()).unwrap();
+                structure.push_str(max_prop.0);
+            } else {
+                structure.push('C');
+            }
+        }
+
+        ss_results.push_str(&format!(">{}\n{}\n", id, structure));
+    }
+
+    Ok(ss_results)
+}
+   
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,protein_mass,translation,read_fasta])
+        .invoke_handler(tauri::generate_handler![n_count,complementary,gc,transcription,dna_motif,point_mutation,calculate_profile_matrix_and_consensus,kmer_composition,protein_mass,translation,read_fasta,predict_secondary_structure])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
     }

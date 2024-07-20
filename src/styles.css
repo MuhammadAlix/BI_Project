@@ -706,3 +706,20 @@ nav a {
   padding: 10px;
   flex-shrink: 1;
 }
+
+/* Secondary structure prediction page Page */
+
+#SS_submitbtn{
+  font-size: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--sidebarbackgroundcolor);
+  color: #fff;
+  cursor: pointer;
+}
+#SS_seq-text{
+  border-radius: 15px;
+  padding: 10px;
+  flex-shrink: 1;
+}

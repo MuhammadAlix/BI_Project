@@ -905,22 +905,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+// Secondary Structure Prediction
 document.addEventListener("DOMContentLoaded", function() {
-    const fileInput = document.querySelector("#fasta_file_input");
-    const textarea = document.querySelector("#seq-text");
-    const output = document.querySelector('.outputss');
-    const submit = document.querySelector('#submitbtn');
+    const submit = document.querySelector("#SS_submitbtn");
+    const terminal = document.querySelector('.terminal');
+    const reset = document.querySelector("#resetbtn");
+    const codedata = document.querySelector(".codearea");
+    const textarea = document.querySelector('#SS_seq-text');
+    const output = document.querySelector('.SS_outputs');
+    const fileInput = document.querySelector("#SS_fasta_file_input");
 
     fileInput.addEventListener("change", async function() {
         const file = fileInput.files[0];
@@ -940,21 +933,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     submit.addEventListener('click', function() {
-        const fileContent = textarea.value;
+        const text = textarea.value.trim();
 
-        if (!fileContent.trim()) {
+        if (!text) {
             output.textContent = 'There is no input';
             return;
         }
 
-        invoke('read_fasta', { content: fileContent }).then((result) => {
-            const sequences = Object.values(result).join('\n');
-            output.textContent = sequences;
+        invoke('predict_secondary_structure', { sequence: text }).then((result) => {
+            output.textContent = result;
+            terminal.style.display = 'block';
         }).catch((error) => {
             output.textContent = `Error: ${error}`;
         });
     });
+
+    reset.addEventListener('click', function() {
+        textarea.value = '';
+        output.textContent = '';
+        terminal.style.display = 'none';
+        codedata.style.display = 'none';
+    });
 });
+
+
+
+
 
 
 
