@@ -8,5 +8,10 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.6.0",
+    "three": "^0.166.1",
+    "three-orbitcontrols": "^2.110.3"
   }
 }
