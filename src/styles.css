@@ -739,6 +739,25 @@ nav a {
   flex-shrink: 1;
 }
 
+
+/* 3d viewer psge */
+.d{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#viewer{
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+}
+canvas{
+  border-radius: 10px;
+}
 /* About us page */
 .full{
   height: 100vh;
