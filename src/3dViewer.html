@@ -1,66 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles.css">
-        
-        <script type='text/javascript' src='package/bio-pv.min.js'></script>
-        <script  type="module" src="3d.js"></script>
-        <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
 
-
-    </head>
-<body>
+    <script type="text/javascript" src="package/bio-pv.min.js"></script>
+    <script type="module" src="3d.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
     <nav>
-        <a href="index2.html">Home</a>
-        <a href="#help">Help</a>
-        <a href="contact.html">Contact</a>
-        <a href="about.html">About Us</a>
+      <a href="index2.html">Home</a>
+      <a href="#help">Help</a>
+      <a href="contact.html">Contact</a>
+      <a href="about.html">About Us</a>
     </nav>
     <div class="container">
-        <div class="left_sidebar">
-            <button class="section-btn DNA"><b>DNA</b></button>
-            <button class="section-btn RNA"><b>RNA</b></button>
-            <button class="section-btn Protein"><b>PRO</b></button>
+      <div class="left_sidebar">
+        <button class="section-btn DNA"><b>DNA</b></button>
+        <button class="section-btn RNA"><b>RNA</b></button>
+        <button class="section-btn Protein"><b>PRO</b></button>
+      </div>
+      <div class="right_sidebar">
+        <div class="PDNA-data">
+          <h3><b>DNA Section</b></h3>
+          <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
+          <a href="Complementary.html">Complementary Strand</a>
+          <a href="GC.html">GC Content</a>
+          <a href="DNA_motif.html">DNA Motif finding</a>
+          <a href="Point_mutations.html">Point Mutations</a>
+          <a href="Profile_census.html">Profile and Census</a>
+          <a href="Kmer_composition.html">Kmer Composition</a>
         </div>
-        <div class="right_sidebar">
-            <div class="DNA-data">
-                <h3 class="DNA"><b>DNA Section</b></h3>
-                <a href="Nucleotide_Counting.html">DNA Nucleotide Counting</a>
-                <a href="Complementary.html">Complementary Strand</a>
-                <a href="GC.html">GC Content</a>
-                <a href="DNA_motif.html">DNA Motif finding</a>
-                <a href="Point_mutations.html">Point Mutations</a>
-                <a href="Profile_census.html">Profile and Census</a>
-                <a href="Kmer_composition.html">Kmer Composition</a>
-            </div>
-            <div class="RNA-data">
-                <h3 class="RNA"><b>RNA Section</b></h3>
-                <a href="Transcription.html">Transcription</a>
-                <a href="RNucleotide_Counting.html">Nucleotide Counting</a>
-                <a href="RGC.html">GC Content</a>
-            </div>
-            <div class="Protein-data">
-                <h3>Protein Section</h3>
-                <a href="Secondary_structure.html">Secondary Structure Prediction</a>
-                <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
-                <a href="Translation.html">Translation</a>
-                <a href="3dViewer.html">Protein 3D Structure</a>
-            </div>
-            <div class="sidr"></div>
+        <div class="PRNA-data">
+          <h3><b>RNA Section</b></h3>
+          <a href="Transcription.html">Transcription</a>
+          <a href="RNucleotide_Counting.html">Nucleotide Counting</a>
+          <a href="RGC.html">GC Content</a>
         </div>
-        <div class="main">
-            <!-- <div class="topic">
-                <h1>3D Viewer</h1>
-                <button class="description">Description</button>
-                <p class="description_text">This tool accepts a PDB file and shows 3D structure of the respective protein molecule.</p>
-            </div>
-            <div> -->
-                <input type="file" id="pdb-file" accept=".pdb">
-                <button id="load-structure">Load Structure</button>
-                <div id="viewer" style="width: 500px; height: 500px;"></div>
-            </div>
+        <div class="PProtein-data">
+          <h3>Protein Section</h3>
+          <a href="Secondary_structure.html">Secondary Structure Prediction</a>
+          <a href="Protein_mass_Calculation.html">Protein Mass Calculation</a>
+          <a href="Translation.html">Translation</a>
+          <a href="3dViewer.html">Protein 3D Structure</a>
+        </div>
+        <div class="sidr"></div>
+      </div>
+      <div class="main">
+        <div class="topic">
+          <h1>3D Viewer</h1>
+          <button class="description">Description</button>
+          <p class="description_text" style="display: none">
+            This tool accepts a PDB file and shows 3D structure of the
+            respective protein molecule.
+          </p>
+        </div>
+        <div class="entry">
+          <input type="file" id="pdb-file" accept=".pdb" />
+          <button id="load-structure">Load Structure</button>
+          <div id="viewer" style="width: 500px; height: 500px"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const description = document.querySelector(".description");
+      const description_text = document.querySelector(".description_text");
 
-</body>
+      description.addEventListener("click", function () {
+        description_text.style.display =
+          description_text.style.display === "none" ? "block" : "none";
+      });
+    });
+  </script>
+  <script src="main.js"></script>
 </html>
