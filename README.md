@@ -6,8 +6,25 @@ This template should help get you started developing with Tauri in vanilla HTML,
 
 - [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
+## Latest version
+
+- V1.2.0
+    Two new tools, 
+    - Protein secondary structure prediction tool.
+    - 3D protein structure viewer from a PDB file. Checkout this amazing [Protien viewer](https://github.com/biasmv/pv.git) package that helped us adding this tool.
+
+## Older versions
+
+- V1.1.0
+    - A collection of different simple tools required in BioInformatics analysis icluding source code provided in rust and python.
+
 
 ## How to Contribute?
+
+- We are using Tauri for this project.
+    Here are some prerequisites that you might need to work with a tauri project:
+    - Rust (Great programming language with amazing security features. [Download here](https://www.rust-lang.org/tools/install))
+    - C++ dev tools (They come bundled with [microsoft visual studio](https://visualstudio.microsoft.com/downloads/?q=build+tools))
 
 - Fork this repository.
 
