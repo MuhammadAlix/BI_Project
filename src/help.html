@@ -9,6 +9,7 @@
       src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
       type="module"
     ></script>
+
 </head>
 <body>
     <nav>
@@ -17,14 +18,21 @@
         <a href="contact.html">Contact</a>
         <a href="about.html">About Us</a>
     </nav>
-    <dotlottie-player
-          src="assets/Help1.json"
-          background="transparent"
-          speed="1"
-          style="width: 80vw; height: 80vh"
-          loop
-          autoplay
+    <div class="hmain">
+      <h1></h1>
+      <div class="hanim">
+
+        <dotlottie-player
+        src="assets/Help.json"
+        background="transparent"
+        speed="1"
+        class="player"
+        style="width: 80vw; height: 80vh"
+        loop
+        autoplay
         ></dotlottie-player>
-        <script src="main.js"></script>
+      </div>
+    </div>
+      <script src="main.js"></script>
 </body>
 </html>
