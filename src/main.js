@@ -234,6 +234,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
 
     code.addEventListener('click',function(){
+        hljs.highlightAll();
         if(codedata.style.display==="none"){
             codedata.style.display = "flex";
         }else {
