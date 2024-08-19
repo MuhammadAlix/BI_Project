@@ -80,28 +80,36 @@ nav a {
   background-color: var(--sidebarbackgroundcolor);
   width: 20%;
   position: relative;
-  padding-top: 20px;
   overflow: hidden;
 }
 .right_sidebar h3 {
-  margin-left: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
   color: var(--inputbackgroundcolor);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   overflow: hidden;
+  background-color: #46525f;
 }
 
 .DNA-data {
   width: 100%;
 }
-
+.DNA-list{
+  padding-top: 8px;
+}
 .DNA-data a {
   display: flex;
   padding-left: 20px;
   padding-top: 8px;
+  padding-bottom: 8px;
   width: 93%;
   flex-wrap: wrap;
   font-size: 20px;
+  border-radius: 10px;
+  transition-timing-function: ease-in-out;
+  transition: background-color 0.5s;
 }
 
 .DNA-data a:hover {
@@ -114,13 +122,19 @@ nav a {
   display: none;
 }
 
+.RNA-list{
+  padding-top: 8px;
+}
+
 .RNA-data a {
   display: flex;
   padding-left: 20px;
   padding-top: 8px;
+  padding-bottom: 8px;
   width: 93%;
   flex-wrap: wrap;
   font-size: 20px;
+  border-radius: 10px;
 }
 
 .RNA-data a:hover {
